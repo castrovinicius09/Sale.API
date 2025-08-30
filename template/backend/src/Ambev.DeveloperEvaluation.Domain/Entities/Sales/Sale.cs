@@ -6,8 +6,8 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
 {
     public class Sale : BaseEntity
     {
-        public Sale(
-            int saleNumber,
+        private Sale(
+            long saleNumber,
             Guid userId,
             string userName,
             Guid branchId,
@@ -19,7 +19,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
             UserName = userName;
             BranchId = branchId;
             BranchName = branchName;
-            BranchAddress = branchAddress;
+            BranchFullAddress = branchAddress;
             Cancelled = false;
             CreateAt = DateTime.UtcNow;
         }
@@ -54,7 +54,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
         }
 
         public static Sale Create(
-            int saleNumber,
+            long saleNumber,
             Guid userId,
             string userName,
             Guid branchId,
@@ -72,7 +72,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
         }
 
         public void Update(
-            int saleNumber,
+            long saleNumber,
             Guid userId,
             string userName,
             Guid branchId,
@@ -84,7 +84,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
             UserName = userName;
             BranchId = branchId;
             BranchName = branchName;
-            BranchAddress = branchAddress;
+            BranchFullAddress = branchAddress;
             Cancelled = false;
             CreateAt = DateTime.UtcNow;
             //TODO: Create SaleUpdatedEvent
