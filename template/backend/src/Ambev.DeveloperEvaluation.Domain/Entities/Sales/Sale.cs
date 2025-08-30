@@ -1,4 +1,6 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Common;
+﻿using Ambev.DeveloperEvaluation.Common.Validation;
+using Ambev.DeveloperEvaluation.Domain.Common;
+using Ambev.DeveloperEvaluation.Domain.Validation.Sales;
 
 namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
 {
@@ -22,7 +24,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
             CreateAt = DateTime.UtcNow;
         }
 
-        public int SaleNumber { get; private set; }
+        public long SaleNumber { get; private set; }
         public bool Cancelled { get; private set; }
         public DateTime CreateAt { get; private set; }
         public DateTime? UpdatedAt { get; private set; }
@@ -36,9 +38,20 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
 
         public Guid BranchId { get; private set; }
         public string BranchName { get; private set; }
-        public string BranchAddress { get; private set; }
+        public string BranchFullAddress { get; private set; }
 
         //public IReadOnlyList<SaleItem> SaleItens { get; set; }
+
+        public ValidationResultDetail Validate()
+        {
+            var validator = new SaleValidator();
+            var result = validator.Validate(this);
+            return new ValidationResultDetail
+            {
+                IsValid = result.IsValid,
+                Errors = result.Errors.Select(o => (ValidationErrorDetail)o)
+            };
+        }
 
         public static Sale Create(
             int saleNumber,
