@@ -38,8 +38,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Validation.Sales
             public void Given_InvalidSaleNumber_When_Validated_Then_ShouldHaveError()
             {
                 // Arrange
-                var sale = SaleTestData.GenerateValidSale();
-                sale.Update(0, sale.UserId, sale.UserName, sale.BranchId, sale.BranchName, sale.BranchFullAddress);
+                var sale = SaleTestData.GenerateInvalidSale();
 
                 // Act
                 var result = _validator.TestValidate(sale);
@@ -53,7 +52,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Validation.Sales
             {
                 // Arrange
                 var sale = SaleTestData.GenerateValidSale();
-                sale.Update(sale.SaleNumber, Guid.Empty, sale.UserName, sale.BranchId, sale.BranchName, sale.BranchFullAddress);
+                sale.Update(Guid.Empty, sale.UserName, sale.BranchId, sale.BranchName, sale.BranchFullAddress);
 
                 // Act
                 var result = _validator.TestValidate(sale);
@@ -67,7 +66,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Validation.Sales
             {
                 // Arrange
                 var sale = SaleTestData.GenerateValidSale();
-                sale.Update(sale.SaleNumber, sale.UserId, "", sale.BranchId, sale.BranchName, sale.BranchFullAddress);
+                sale.Update(sale.UserId, "", sale.BranchId, sale.BranchName, sale.BranchFullAddress);
 
                 // Act
                 var result = _validator.TestValidate(sale);
@@ -82,7 +81,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Validation.Sales
                 // Arrange
                 var sale = SaleTestData.GenerateValidSale();
                 var longName = UserTestData.GenerateLongUsername();
-                sale.Update(sale.SaleNumber, sale.UserId, longName, sale.BranchId, sale.BranchName, sale.BranchFullAddress);
+                sale.Update(sale.UserId, longName, sale.BranchId, sale.BranchName, sale.BranchFullAddress);
 
                 // Act
                 var result = _validator.TestValidate(sale);
@@ -96,7 +95,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Validation.Sales
             {
                 // Arrange
                 var sale = SaleTestData.GenerateValidSale();
-                sale.Update(sale.SaleNumber, sale.UserId, sale.UserName, Guid.Empty, sale.BranchName, sale.BranchFullAddress);
+                sale.Update(sale.UserId, sale.UserName, Guid.Empty, sale.BranchName, sale.BranchFullAddress);
 
                 // Act
                 var result = _validator.TestValidate(sale);
@@ -110,7 +109,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Validation.Sales
             {
                 // Arrange
                 var sale = SaleTestData.GenerateValidSale();
-                sale.Update(sale.SaleNumber, sale.UserId, sale.UserName, sale.BranchId, "", sale.BranchFullAddress);
+                sale.Update(sale.UserId, sale.UserName, sale.BranchId, "", sale.BranchFullAddress);
 
                 // Act
                 var result = _validator.TestValidate(sale);
@@ -125,7 +124,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Validation.Sales
                 // Arrange
                 var sale = SaleTestData.GenerateValidSale();
                 var longBranchName = SaleTestData.GenerateLongBranchName();
-                sale.Update(sale.SaleNumber, sale.UserId, sale.UserName, sale.BranchId, longBranchName, sale.BranchFullAddress);
+                sale.Update(sale.UserId, sale.UserName, sale.BranchId, longBranchName, sale.BranchFullAddress);
 
                 // Act
                 var result = _validator.TestValidate(sale);
@@ -139,7 +138,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Validation.Sales
             {
                 // Arrange
                 var sale = SaleTestData.GenerateValidSale();
-                sale.Update(sale.SaleNumber, sale.UserId, sale.UserName, sale.BranchId, sale.BranchName, "");
+                sale.Update(sale.UserId, sale.UserName, sale.BranchId, sale.BranchName, "");
 
                 // Act
                 var result = _validator.TestValidate(sale);
@@ -154,7 +153,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Validation.Sales
                 // Arrange
                 var sale = SaleTestData.GenerateValidSale();
                 var longBranchAddress = SaleTestData.GenerateLongBranchAddress();
-                sale.Update(sale.SaleNumber, sale.UserId, sale.UserName, sale.BranchId, sale.BranchName, longBranchAddress);
+                sale.Update(sale.UserId, sale.UserName, sale.BranchId, sale.BranchName, longBranchAddress);
 
                 // Act
                 var result = _validator.TestValidate(sale);

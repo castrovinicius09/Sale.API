@@ -24,7 +24,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
             CreateAt = DateTime.UtcNow;
         }
 
-        public long SaleNumber { get; private set; }
+        public long SaleNumber { get; private set; } //cannot be updated
         public bool Cancelled { get; private set; }
         public DateTime CreateAt { get; private set; }
         public DateTime? UpdatedAt { get; private set; }
@@ -72,14 +72,12 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
         }
 
         public void Update(
-            long saleNumber,
             Guid userId,
             string userName,
             Guid branchId,
             string branchName,
             string branchAddress)
         {
-            SaleNumber = saleNumber;
             UserId = userId;
             UserName = userName;
             BranchId = branchId;

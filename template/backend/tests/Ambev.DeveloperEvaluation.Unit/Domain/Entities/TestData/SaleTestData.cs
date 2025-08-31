@@ -42,6 +42,34 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData
         }
 
         /// <summary>
+        /// Configures the Faker to generate valid Sale entities.
+        /// The generated sales will have valid:
+        /// - saleNumber (using internet usernames)
+        /// - userId (meeting complexity requirements)
+        /// - userName (valid format)
+        /// - branchId (Brazilian format)
+        /// - branchName (Active or Suspended)
+        /// - branchAddress (Customer or Admin)
+        /// </summary>
+        public static Sale GenerateInvalidSale()
+        {
+            var saleNumber = 0;
+            var userId = _faker.Random.Guid();
+            var userName = UserTestData.GenerateValidUsername();
+            var branchId = _faker.Random.Guid();
+            var branchName = GenerateLongBranchName();
+            var branchAddress = GenerateLongBranchAddress();
+
+            // Chama o método estático de fábrica
+            return Sale.Create(
+                saleNumber,
+                userId,
+                userName,
+                branchId,
+                branchName,
+                branchAddress);
+        }
+        /// <summary>
         /// Generates a branchName that exceeds the maximum length limit.
         /// The generated branchName will:
         /// - Be longer than 100 characters
