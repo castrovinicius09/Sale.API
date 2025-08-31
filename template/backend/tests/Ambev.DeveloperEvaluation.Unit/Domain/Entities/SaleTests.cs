@@ -48,6 +48,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
         {
             // Arrange
             var validSale = SaleTestData.GenerateValidSale();
+            var item = validSale.SaleItens.FirstOrDefault();
 
             // Act
             var sale = Sale.Create(
@@ -56,7 +57,11 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
                 validSale.UserName,
                 validSale.BranchId,
                 validSale.BranchName,
-                validSale.BranchFullAddress);
+                validSale.BranchFullAddress,
+                item.Quantity,
+                item.UnitPrice,
+                item.ProductId,
+                item.ProductName);
 
             // Assert
             Assert.Equal(validSale.SaleNumber, sale.SaleNumber);
@@ -115,5 +120,46 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
             Assert.True(sale.Cancelled);
             Assert.NotNull(sale.CancelledAt);
         }
+
+        /// <summary>
+        /// Tests that deleting an existing SaleItem removes it from the collection 
+        /// and recalculates total items and total sale amount to zero.
+        /// </summary>
+        [Fact(DisplayName = "DeleteItem should remove existing item and update totals")]
+        public void Given_ExistingSaleWithItem_When_DeleteItem_Then_ShouldRemoveItemAndUpdateTotals()
+        {
+            // Arrange
+            var sale = SaleTestData.GenerateValidSale();
+            var item = sale.SaleItens.FirstOrDefault();
+
+            // Act
+            sale.DeleteItem(item.ProductId);
+
+            // Assert
+            Assert.Empty(sale.SaleItens);
+            Assert.Equal(0, sale.TotalItens);
+            Assert.Equal(0m, sale.TotalSaleAmount);
+        }
+
+        /// <summary>
+        /// Tests that calling DeleteItem with a non-existing productId 
+        /// does not alter the sale’s item collection or totals.
+        /// </summary>
+        [Fact(DisplayName = "DeleteItem should not change sale when product does not exist")]
+        public void Given_ExistingSale_When_DeleteNonExistingItem_Then_ShouldRemainUnchanged()
+        {
+            // Arrange
+            var sale = SaleTestData.GenerateValidSale();
+            var originalCount = sale.TotalItens;
+            var originalTotal = sale.TotalSaleAmount;
+
+            // Act
+            sale.DeleteItem(Guid.NewGuid());
+
+            // Assert
+            Assert.Equal(originalCount, sale.TotalItens);
+            Assert.Equal(originalTotal, sale.TotalSaleAmount);
+        }
+
     }
 }

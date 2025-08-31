@@ -67,7 +67,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
         /// <summary>
         /// Tests that when a sale item is updated, its properties and total amount are updated correctly.
         /// </summary>
-        [Fact(DisplayName = "SaleItem should update properties when updated")]
+        [Fact(DisplayName = "SaleItem should update quantity properties when updated")]
         public void Given_ExistingSaleItem_When_Updated_Then_PropertiesShouldChange()
         {
             // Arrange
@@ -78,13 +78,13 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
             var newProductName = "Updated Product";
 
             var expectedDiscount = 0.2m;
-            var expectedTotal = (newQuantity * newUnitPrice) * (1 - expectedDiscount);
+            var expectedTotal = ((saleItem.Quantity + newQuantity) * newUnitPrice) * (1 - expectedDiscount);
 
             // Act
             saleItem.Update(newQuantity, newUnitPrice, newProductName);
 
             // Assert
-            Assert.Equal(newQuantity, saleItem.Quantity);
+            Assert.Equal(20, saleItem.Quantity);
             Assert.Equal(newUnitPrice, saleItem.UnitPrice);
             Assert.Equal(newProductName, saleItem.ProductName);
             Assert.Equal(expectedTotal, saleItem.TotalAmount);

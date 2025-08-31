@@ -46,7 +46,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData
         public static SaleItem GenerateInvalidSaleItem()
         {
             var quantity = 0;
-            decimal unitPrice = 0;
+            var unitPrice = 0;
             var productId = Guid.Empty;
             var productName = _faker.Random.String2(101);
 

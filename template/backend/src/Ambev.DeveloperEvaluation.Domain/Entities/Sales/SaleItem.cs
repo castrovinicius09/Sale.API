@@ -79,7 +79,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
         {
             return Quantity switch
             {
-                4 => 0.1m, //10% discount
+                >= 4 and <= 9 => 0.1m, //10% discount
                 >= 10 and <= 20 => 0.2m, //20% discount
                 > 20 => throw new InvalidOperationException("Cannot sell above 20 identical items."),
                 _ => 0
