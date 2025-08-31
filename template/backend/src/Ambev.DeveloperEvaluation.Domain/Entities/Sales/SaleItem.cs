@@ -58,10 +58,14 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
 
         public void Update(
             int quantity,
-            decimal unitPrice)
+            decimal unitPrice,
+            Guid productId,
+            string productName)
         {
             Quantity = quantity;
             UnitPrice = unitPrice;
+            ProductId = productId;
+            ProductName = productName;
 
             CalculateTotalAmount();
         }
@@ -69,7 +73,8 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
         private void CalculateTotalAmount()
         {
             var discount = CalculateDiscount();
-            _totalAmount = (UnitPrice * Quantity) - discount;
+            var totalAmount = (UnitPrice * Quantity);
+            _totalAmount = totalAmount - (totalAmount * discount);
         }
 
         private decimal CalculateDiscount()

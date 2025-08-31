@@ -15,12 +15,12 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData
         /// <summary>
         /// Configures the Faker to generate valid Sale entities.
         /// The generated sales will have valid:
-        /// - saleNumber (using internet usernames)
-        /// - userId (meeting complexity requirements)
-        /// - userName (valid format)
-        /// - branchId (Brazilian format)
-        /// - branchName (Active or Suspended)
-        /// - branchAddress (Customer or Admin)
+        /// - saleNumber (using random number)
+        /// - userId (using random Guid)
+        /// - userName (usind user Faker test data)
+        /// - branchId (using random Guid)
+        /// - branchName (using company names)
+        /// - branchAddress (using address)
         /// </summary>
         public static Sale GenerateValidSale()
         {
@@ -42,23 +42,23 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData
         }
 
         /// <summary>
-        /// Configures the Faker to generate valid Sale entities.
+        /// Configures the Faker to generate invalid Sale entities.
         /// The generated sales will have valid:
-        /// - saleNumber (using internet usernames)
-        /// - userId (meeting complexity requirements)
-        /// - userName (valid format)
-        /// - branchId (Brazilian format)
-        /// - branchName (Active or Suspended)
-        /// - branchAddress (Customer or Admin)
+        /// - saleNumber (using random number)
+        /// - userId (empty Guid)
+        /// - userName (usind user Faker test data)
+        /// - branchId (empty Guid)
+        /// - branchName (invalid name length)
+        /// - branchAddress (invalid address name)
         /// </summary>
         public static Sale GenerateInvalidSale()
         {
             var saleNumber = 0;
-            var userId = _faker.Random.Guid();
+            var userId = Guid.Empty;
             var userName = UserTestData.GenerateValidUsername();
-            var branchId = _faker.Random.Guid();
-            var branchName = GenerateLongBranchName();
-            var branchAddress = GenerateLongBranchAddress();
+            var branchId = Guid.Empty;
+            var branchName = _faker.Random.String2(101);
+            var branchAddress = _faker.Random.String2(151);
 
             // Chama o método estático de fábrica
             return Sale.Create(
@@ -68,31 +68,6 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData
                 branchId,
                 branchName,
                 branchAddress);
-        }
-        /// <summary>
-        /// Generates a branchName that exceeds the maximum length limit.
-        /// The generated branchName will:
-        /// - Be longer than 100 characters
-        /// - Contain random alphanumeric characters
-        /// This is useful for testing branchName length validation error cases.
-        /// </summary>
-        /// <returns>A branchName that exceeds the maximum length limit.</returns>
-        public static string GenerateLongBranchName()
-        {
-            return new Faker().Random.String2(101);
-        }
-
-        /// <summary>
-        /// Generates a branchAddredd that exceeds the maximum length limit.
-        /// The generated branchAddredd will:
-        /// - Be longer than 150 characters
-        /// - Contain random alphanumeric characters
-        /// This is useful for testing branchAddredd length validation error cases.
-        /// </summary>
-        /// <returns>A branchAddredd that exceeds the maximum length limit.</returns>
-        public static string GenerateLongBranchAddress()
-        {
-            return new Faker().Random.String2(151);
         }
     }
 }
