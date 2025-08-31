@@ -6,13 +6,21 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
 {
     public class Sale : BaseEntity
     {
+        private int _totalItens;
+        private decimal _totalSaleAmount;
+        private List<SaleItem> _saleItems = new();
+
         private Sale(
             long saleNumber,
             Guid userId,
             string userName,
             Guid branchId,
             string branchName,
-            string branchAddress)
+            string branchAddress,
+            int quantity,
+            decimal unitPrice,
+            Guid productId,
+            string productName)
         {
             SaleNumber = saleNumber;
             UserId = userId;
@@ -22,6 +30,8 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
             BranchFullAddress = branchAddress;
             Cancelled = false;
             CreateAt = DateTime.UtcNow;
+
+            AddItem(quantity, unitPrice, productId, productName);
         }
 
         public long SaleNumber { get; private set; } //cannot be updated
@@ -29,9 +39,6 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
         public DateTime CreateAt { get; private set; }
         public DateTime? UpdatedAt { get; private set; }
         public DateTime? CancelledAt { get; private set; }
-        //public int TotalItems { get; set; }
-
-        //public decimal TotalSaleAMount { get; private set; }
 
         public Guid UserId { get; private set; } //external ID
         public string UserName { get; private set; } //denormalization property
@@ -40,7 +47,9 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
         public string BranchName { get; private set; } //denormalization property
         public string BranchFullAddress { get; private set; } //denormalization property
 
-        //public IReadOnlyList<SaleItem> SaleItens { get; set; }
+        public int TotalItens => _totalItens;
+        public decimal TotalSaleAmount => _totalSaleAmount;
+        public IReadOnlyList<SaleItem> SaleItens => _saleItems;
 
         public ValidationResultDetail Validate()
         {
@@ -59,7 +68,12 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
             string userName,
             Guid branchId,
             string branchName,
-            string branchAddress)
+            string branchAddress,
+            /*saleitem properties*/
+            int quantity,
+            decimal unitPrice,
+            Guid productId,
+            string productName)
         {
             //TODO: Create SaleCreatedEvent
             return new Sale(
@@ -68,7 +82,11 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
                 userName,
                 branchId,
                 branchName,
-                branchAddress);
+                branchAddress,
+                quantity,
+                unitPrice,
+                productId,
+                productName);
         }
 
         public void Update(
@@ -95,7 +113,37 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
             //TODO: Create SaleCancelledEvent
         }
 
-        //delete item 
-        //fire event SaleItemDeletedEvent
+        public void DeleteItem(Guid productId)
+        {
+            var item = _saleItems.FirstOrDefault(i => i.ProductId == productId);
+            if (item is null) return;
+
+            _saleItems.Remove(item);
+            _totalItens = _saleItems.Count;
+            _totalSaleAmount = _saleItems.Sum(i => i.TotalAmount);
+
+            //fire event SaleItemDeletedEvent
+        }
+
+        private void AddItem(
+            int quantity,
+            decimal unitPrice,
+            Guid productId,
+            string productName)
+        {
+            var item = _saleItems.FirstOrDefault(i => i.ProductId == productId);
+            if (item is not null)
+            {
+                item.Update(quantity, unitPrice, productName);
+            }
+            else
+            {
+                item = SaleItem.Create(quantity, unitPrice, productId, productName);
+            }
+
+            _saleItems.Add(item);
+            _totalItens = _saleItems.Count;
+            _totalSaleAmount = _saleItems.Sum(i => i.TotalAmount);
+        }
     }
 }

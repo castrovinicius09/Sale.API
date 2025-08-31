@@ -75,19 +75,17 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
 
             var newQuantity = 10;
             var newUnitPrice = 25.5m;
-            var newProductId = Guid.NewGuid();
             var newProductName = "Updated Product";
 
             var expectedDiscount = 0.2m;
             var expectedTotal = (newQuantity * newUnitPrice) * (1 - expectedDiscount);
 
             // Act
-            saleItem.Update(newQuantity, newUnitPrice, newProductId, newProductName);
+            saleItem.Update(newQuantity, newUnitPrice, newProductName);
 
             // Assert
             Assert.Equal(newQuantity, saleItem.Quantity);
             Assert.Equal(newUnitPrice, saleItem.UnitPrice);
-            Assert.Equal(newProductId, saleItem.ProductId);
             Assert.Equal(newProductName, saleItem.ProductName);
             Assert.Equal(expectedTotal, saleItem.TotalAmount);
         }
@@ -108,7 +106,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
 
             // Act & Assert - Update
             Assert.Throws<InvalidOperationException>(() =>
-                item.Update(invalidQuantity, item.UnitPrice, item.ProductId, item.ProductName));
+                item.Update(invalidQuantity, item.UnitPrice, item.ProductName));
         }
 
         /// <summary>

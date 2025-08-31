@@ -59,12 +59,10 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
         public void Update(
             int quantity,
             decimal unitPrice,
-            Guid productId,
             string productName)
         {
-            Quantity = quantity;
+            Quantity += quantity;
             UnitPrice = unitPrice;
-            ProductId = productId;
             ProductName = productName;
 
             CalculateTotalAmount();
