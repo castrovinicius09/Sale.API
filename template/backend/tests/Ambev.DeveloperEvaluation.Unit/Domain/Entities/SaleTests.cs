@@ -67,6 +67,8 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
             Assert.Equal(validSale.BranchFullAddress, sale.BranchFullAddress);
             Assert.False(sale.Cancelled);
             Assert.Equal(validSale.Cancelled, sale.Cancelled);
+            Assert.Null(sale.UpdatedAt);
+            Assert.Null(sale.CancelledAt);
         }
 
         /// <summary>
@@ -93,6 +95,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
             Assert.Equal(newBranchId, sale.BranchId);
             Assert.Equal(newBranchName, sale.BranchName);
             Assert.Equal(newBranchAddress, sale.BranchFullAddress);
+            Assert.NotNull(sale.UpdatedAt);
             Assert.False(sale.Cancelled);
         }
 
