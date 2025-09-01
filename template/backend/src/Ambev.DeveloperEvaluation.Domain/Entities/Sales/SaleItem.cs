@@ -26,11 +26,11 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
         public decimal UnitPrice { get; private set; }
         public decimal TotalAmount => _totalAmount;
 
-        //public bool Cancelled { get; private set; }
-        //public DateTime? CancelledAt { get; private set; }
-
         public Guid ProductId { get; private set; } //external ID
         public string ProductName { get; private set; } //denormalization property
+
+        public Guid SaleId { get; set; }
+        public Sale Sale { get; set; }
 
         public ValidationResultDetail Validate()
         {

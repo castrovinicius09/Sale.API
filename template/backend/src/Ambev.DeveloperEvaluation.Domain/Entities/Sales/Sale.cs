@@ -10,6 +10,8 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
         private decimal _totalSaleAmount;
         private List<SaleItem> _saleItems = new();
 
+        private Sale() { }
+
         private Sale(
             long saleNumber,
             Guid userId,
@@ -29,14 +31,14 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
             BranchName = branchName;
             BranchFullAddress = branchAddress;
             Cancelled = false;
-            CreateAt = DateTime.UtcNow;
+            CreatedAt = DateTime.UtcNow;
 
             AddItem(quantity, unitPrice, productId, productName);
         }
 
         public long SaleNumber { get; private set; } //cannot be updated
         public bool Cancelled { get; private set; }
-        public DateTime CreateAt { get; private set; }
+        public DateTime CreatedAt { get; private set; }
         public DateTime? UpdatedAt { get; private set; }
         public DateTime? CancelledAt { get; private set; }
 
