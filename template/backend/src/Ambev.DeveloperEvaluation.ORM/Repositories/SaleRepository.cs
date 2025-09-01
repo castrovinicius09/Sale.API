@@ -27,9 +27,9 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// </summary>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Sale list if exist, null otherwise</returns>
-        public Task<IEnumerable<Sale>> GetByAllAsync(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Sale>> GetByAllAsync(CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await _context.Sales.ToListAsync(cancellationToken);
         }
 
         /// <summary>
