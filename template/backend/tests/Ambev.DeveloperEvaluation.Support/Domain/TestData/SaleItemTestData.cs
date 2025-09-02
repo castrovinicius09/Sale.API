@@ -1,7 +1,7 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities.Sales;
 using Bogus;
 
-namespace Ambev.DeveloperEvaluation.Support.TestData
+namespace Ambev.DeveloperEvaluation.Support.Domain.TestData
 {
     /// <summary>
     /// Provides methods for generating test data using the Bogus library.

@@ -1,5 +1,5 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities.Sales;
-using Ambev.DeveloperEvaluation.Support.TestData;
+using Ambev.DeveloperEvaluation.Support.Domain.TestData;
 using Xunit;
 
 namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
