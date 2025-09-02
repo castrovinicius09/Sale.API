@@ -1,9 +1,13 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities.Sales;
-using Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData;
+using Ambev.DeveloperEvaluation.Support.TestData;
 using Xunit;
 
 namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
 {
+    /// <summary>
+    /// Contains unit tests for the Sale items entity class.
+    /// Tests cover status changes and validation scenarios.
+    /// </summary>
     public class SaleItemTests
     {
         /// <summary>

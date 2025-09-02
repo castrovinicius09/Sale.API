@@ -1,14 +1,14 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities.Sales;
 using Bogus;
 
-namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData
+namespace Ambev.DeveloperEvaluation.Support.TestData
 {
     /// <summary>
     /// Provides methods for generating test data using the Bogus library.
     /// This class centralizes all test data generation to ensure consistency
     /// across test cases and provide both valid and invalid data scenarios.
     /// </summary>
-    internal static class SaleTestData
+    public static class SaleTestData
     {
         private static readonly Faker _faker = new Faker();
 
