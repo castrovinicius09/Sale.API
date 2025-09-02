@@ -7,6 +7,10 @@ using Xunit;
 
 namespace Ambev.DeveloperEvaluation.Integration.Repositories
 {
+    /// <summary>
+    /// Contains integration tests for the sale repository class.
+    /// Tests cover repository behaviour with memory database.
+    /// </summary>
     public class SaleRepositoryTests
     {
         private readonly DefaultContext _context;
@@ -18,33 +22,35 @@ namespace Ambev.DeveloperEvaluation.Integration.Repositories
             _repository = new SaleRepository(_context);
         }
 
-        //[Fact]
-        //public async Task GetByAllAsync_ShouldReturnPaginatedSales()
-        //{
-        //    var context = CreateInMemoryContext();
-        //    var repository = new SaleRepository(context);
+        /// <summary>
+        /// Tests that paginated retrieval returns the correct number of sales for different page sizes and positions.
+        /// </summary>
+        [Theory(DisplayName = "Should return correct number of sales for each page")]
+        [InlineData(1, 5)]
+        [InlineData(2, 10)]
+        [InlineData(3, 7)]
+        public async Task Given_SalesExist_When_PaginatedRetrievalExecuted_Then_ShouldReturnCorrectPage(int pageNumber, int pageSize)
+        {
+            // Arrange
+            for (int i = 1; i <= 25; i++)
+            {
+                var sale = SaleTestData.GenerateValidSale();
 
-        //    for (int i = 0; i < 25; i++)
-        //    {
-        //        var sale = SaleBuilder.Default().WithSaleNumber(1000 + i).Build();
-        //        await repository.CreateAsync(sale);
-        //    }
+                await _repository.CreateAsync(sale);
+            }
 
-        //    var pageSize = 10;
-        //    var pageNumber = 2;
+            // Act
+            var result = await _repository.GetAllPaginatedAsync(pageNumber, pageSize);
 
-        //    var paginatedSales = await context.Sales
-        //        .OrderBy(s => s.SaleNumber)
-        //        .Skip((pageNumber - 1) * pageSize)
-        //        .Take(pageSize)
-        //        .ToListAsync();
+            // Assert
+            result.Should().HaveCount(pageSize);
+        }
 
-        //    paginatedSales.Should().HaveCount(10);
-        //    paginatedSales.First().SaleNumber.Should().Be(1010);
-        //}
-
-        [Fact]
-        public async Task CreateAsync_ShouldPersistSale()
+        /// <summary>
+        /// Tests that a sale is correctly persisted to the database when created.
+        /// </summary>
+        [Fact(DisplayName = "Should persist sale when created")]
+        public async Task Given_ValidSale_When_Created_Then_ShouldBePersisted()
         {
             // Arrange
             var sale = SaleTestData.GenerateValidSale();
@@ -61,8 +67,11 @@ namespace Ambev.DeveloperEvaluation.Integration.Repositories
             dbSale.UserName.Should().Be(sale.UserName);
         }
 
-        [Fact]
-        public async Task UpdateAsync_ShouldModifySaleFields()
+        /// <summary>
+        /// Tests that updating a sale modifies its fields and persists the changes.
+        /// </summary>
+        [Fact(DisplayName = "Should update sale fields when modified")]
+        public async Task Given_ExistingSale_When_Updated_Then_FieldsShouldBeModified()
         {
             var sale = SaleTestData.GenerateValidSale();
             await _repository.CreateAsync(sale);
@@ -76,8 +85,11 @@ namespace Ambev.DeveloperEvaluation.Integration.Repositories
             dbSale!.UserName.Should().Be("Carlos");
         }
 
-        [Fact]
-        public async Task DeleteAsync_ShouldRemoveSale()
+        /// <summary>
+        /// Tests that deleting a sale removes it from the database and returns true.
+        /// </summary>
+        [Fact(DisplayName = "Should remove sale when deleted")]
+        public async Task Given_ExistingSale_When_Deleted_Then_ShouldBeRemoved()
         {
             // Arrange
             var context = MockingData.CreateInMemoryContext();
@@ -96,8 +108,11 @@ namespace Ambev.DeveloperEvaluation.Integration.Repositories
             check.Should().BeNull();
         }
 
-        [Fact]
-        public async Task CreateAsync_ShouldThrowIfCancelled()
+        /// <summary>
+        /// Tests that creating a sale with a cancelled token throws an OperationCanceledException.
+        /// </summary>
+        [Fact(DisplayName = "Should throw OperationCanceledException when token is cancelled")]
+        public async Task Given_CancellationToken_When_CreateAsyncCalled_Then_ShouldThrowException()
         {
             var sale = SaleTestData.GenerateValidSale();
             using var cts = new CancellationTokenSource();

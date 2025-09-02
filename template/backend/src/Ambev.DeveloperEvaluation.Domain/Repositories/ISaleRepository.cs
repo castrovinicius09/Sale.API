@@ -20,7 +20,10 @@ namespace Ambev.DeveloperEvaluation.Domain.Repositories
         /// </summary>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Sale list if exist, null otherwise</returns>
-        Task<IEnumerable<Sale>> GetByAllAsync(CancellationToken cancellationToken = default);
+        Task<IEnumerable<Sale>> GetAllPaginatedAsync(
+            int pageNumber,
+            int pageSize,
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Creates a new Sale in the repository

@@ -4,6 +4,10 @@ using Xunit;
 
 namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
 {
+    /// <summary>
+    /// Contains unit tests for the Sale entity class.
+    /// Tests cover status changes and validation scenarios.
+    /// </summary>
     public class SaleTests
     {
         /// <summary>
