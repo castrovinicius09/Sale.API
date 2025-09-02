@@ -1,4 +1,6 @@
-﻿namespace Ambev.DeveloperEvaluation.Application.Sales.GetPaginatedSales
+﻿using Ambev.DeveloperEvaluation.Domain.Entities.Sales;
+
+namespace Ambev.DeveloperEvaluation.Application.Sales.GetSaleById
 {
     /// <summary>
     /// Response class for list of sales
@@ -59,5 +61,10 @@
         /// Sale cancelled date
         /// </summary>
         public DateTime? CancelledAt { get; }
+
+        /// <summary>
+        /// Sale item list
+        /// </summary>
+        public IReadOnlyList<SaleItem> SaleItems { get; }
     }
 }

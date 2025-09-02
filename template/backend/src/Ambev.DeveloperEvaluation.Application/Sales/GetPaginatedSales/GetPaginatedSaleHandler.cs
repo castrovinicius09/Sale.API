@@ -20,9 +20,9 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetPaginatedSales
         /// <summary>
         /// Handles the GetPaginatedSaleQuery request
         /// </summary>
-        /// <param name="request">The GetUser command</param>
+        /// <param name="request">The GetPaginatedSale query</param>
         /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>The user details if found</returns>
+        /// <returns>The list of paginated sales found</returns>
         public async Task<IEnumerable<GetSaleByIdResult>> Handle(GetPaginatedSaleQuery request, CancellationToken cancellationToken)
         {
             var validator = new GetPaginatedSaleValidator();

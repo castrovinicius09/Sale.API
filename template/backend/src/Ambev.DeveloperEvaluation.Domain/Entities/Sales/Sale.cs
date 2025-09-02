@@ -6,7 +6,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
 {
     public class Sale : BaseEntity
     {
-        private int _totalItens;
+        private int _totalItems;
         private decimal _totalSaleAmount;
         private List<SaleItem> _saleItems = new();
 
@@ -49,9 +49,9 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
         public string BranchName { get; private set; } //denormalization property
         public string BranchFullAddress { get; private set; } //denormalization property
 
-        public int TotalItens => _totalItens;
+        public int TotalItems => _totalItems;
         public decimal TotalSaleAmount => _totalSaleAmount;
-        public IReadOnlyList<SaleItem> SaleItens => _saleItems;
+        public IReadOnlyList<SaleItem> SaleItems => _saleItems;
 
         public ValidationResultDetail Validate()
         {
@@ -121,7 +121,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
             if (item is null) return;
 
             _saleItems.Remove(item);
-            _totalItens = _saleItems.Count;
+            _totalItems = _saleItems.Count;
             _totalSaleAmount = _saleItems.Sum(i => i.TotalAmount);
 
             //fire event SaleItemDeletedEvent
@@ -144,7 +144,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
             }
 
             _saleItems.Add(item);
-            _totalItens = _saleItems.Count;
+            _totalItems = _saleItems.Count;
             _totalSaleAmount = _saleItems.Sum(i => i.TotalAmount);
         }
     }
