@@ -13,7 +13,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetPaginatedSales
         /// </summary>
         public GetPaginatedSaleProfile()
         {
-            CreateMap<Sale, GetSaleByIdResult>();
+            CreateMap<Sale, GetPaginatedSalesResult>();
         }
     }
 }
