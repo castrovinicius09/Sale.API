@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Ambev.DeveloperEvaluation.Domain.Entities.Sales;
+using AutoMapper;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.GetPaginatedSales
 {
@@ -12,7 +13,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetPaginatedSales
         /// </summary>
         public GetPaginatedSaleProfile()
         {
-
+            CreateMap<Sale, GetSaleByIdResult>();
         }
     }
 }

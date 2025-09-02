@@ -12,7 +12,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetPaginatedSales
     /// <param name="mapper">The AutoMapper instance</param>
     public sealed class GetPaginatedSaleHandler(
          ISaleRepository saleRepository,
-         IMapper mapper) : IRequestHandler<GetPaginatedSaleQuery, GetSalesResult>
+         IMapper mapper) : IRequestHandler<GetPaginatedSaleQuery, IEnumerable<GetSaleByIdResult>>
     {
         private readonly ISaleRepository _saleRepository = saleRepository;
         private readonly IMapper _mapper = mapper;
@@ -23,7 +23,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetPaginatedSales
         /// <param name="request">The GetUser command</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>The user details if found</returns>
-        public async Task<GetSalesResult> Handle(GetPaginatedSaleQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<GetSaleByIdResult>> Handle(GetPaginatedSaleQuery request, CancellationToken cancellationToken)
         {
             var validator = new GetPaginatedSaleValidator();
             var validationResult = await validator.ValidateAsync(request, cancellationToken);
@@ -33,7 +33,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetPaginatedSales
 
             var sales = await _saleRepository.GetAllPaginatedAsync(request.PageNumber, request.PageSize, cancellationToken);
 
-            return _mapper.Map<GetSalesResult>(sales);
+            return _mapper.Map<IEnumerable<GetSaleByIdResult>>(sales);
         }
     }
 }
