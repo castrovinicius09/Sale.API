@@ -1,12 +1,12 @@
-using AutoMapper;
-using MediatR;
-using FluentValidation;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
+using AutoMapper;
+using FluentValidation;
+using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Users.GetUser;
 
 /// <summary>
-/// Handler for processing GetUserCommand requests
+/// Handler for processing GetUserQuery requests
 /// </summary>
 public class GetUserHandler : IRequestHandler<GetUserQuery, GetUserResult>
 {
@@ -18,7 +18,7 @@ public class GetUserHandler : IRequestHandler<GetUserQuery, GetUserResult>
     /// </summary>
     /// <param name="userRepository">The user repository</param>
     /// <param name="mapper">The AutoMapper instance</param>
-    /// <param name="validator">The validator for GetUserCommand</param>
+    /// <param name="validator">The validator for GetUserQuery</param>
     public GetUserHandler(
         IUserRepository userRepository,
         IMapper mapper)
@@ -28,7 +28,7 @@ public class GetUserHandler : IRequestHandler<GetUserQuery, GetUserResult>
     }
 
     /// <summary>
-    /// Handles the GetUserCommand request
+    /// Handles the GetUserQuery request
     /// </summary>
     /// <param name="request">The GetUser command</param>
     /// <param name="cancellationToken">Cancellation token</param>
