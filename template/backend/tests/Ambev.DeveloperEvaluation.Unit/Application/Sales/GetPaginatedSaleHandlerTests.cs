@@ -50,6 +50,8 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Sales
             result.Should().NotBeNull();
             result.Should().HaveCount(5);
             result.Select(r => r.Id).Should().BeEquivalentTo(expectedResult.Select(r => r.Id));
+            await _saleRepository.Received(1).GetAllPaginatedAsync(query.PageNumber, query.PageSize, Arg.Any<CancellationToken>());
+            _mapper.Received(1).Map<IEnumerable<GetSaleByIdResult>>(Arg.Is<IEnumerable<Sale>>(list => list.SequenceEqual(sales)));
         }
 
         /// <summary>
@@ -68,29 +70,6 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Sales
 
             // Then
             await act.Should().ThrowAsync<FluentValidation.ValidationException>();
-        }
-
-        /// <summary>
-        /// Tests that the mapper is called with the correct sales list.
-        /// </summary>
-        [Fact(DisplayName = "Given valid query When handling Then maps sales to result list")]
-        public async Task Handle_ValidQuery_MapsSalesToResultList()
-        {
-            // Given
-            var query = new GetPaginatedSaleQuery(1, 3);
-            var sales = Enumerable.Range(1, 3).Select(_ => SaleTestData.GenerateValidSale()).ToList();
-            var expectedResult = sales.Select(s => new GetSaleByIdResult { Id = s.Id }).ToList();
-
-            _saleRepository.GetAllPaginatedAsync(query.PageNumber, query.PageSize, Arg.Any<CancellationToken>())
-                .Returns(sales);
-            _mapper.Map<IEnumerable<GetSaleByIdResult>>(sales).Returns(expectedResult);
-
-            // When
-            await _handler.Handle(query, CancellationToken.None);
-
-            // Then
-            _mapper.Received(1).Map<IEnumerable<GetSaleByIdResult>>(Arg.Is<IEnumerable<Sale>>(list => list.SequenceEqual(sales)));
-
         }
     }
 }

@@ -52,7 +52,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
         {
             // Arrange
             var validSale = SaleTestData.GenerateValidSale();
-            var item = validSale.SaleItens.FirstOrDefault();
+            var item = validSale.SaleItems.FirstOrDefault();
 
             // Act
             var sale = Sale.Create(
@@ -134,14 +134,14 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
         {
             // Arrange
             var sale = SaleTestData.GenerateValidSale();
-            var item = sale.SaleItens.FirstOrDefault();
+            var item = sale.SaleItems.FirstOrDefault();
 
             // Act
             sale.DeleteItem(item.ProductId);
 
             // Assert
-            Assert.Empty(sale.SaleItens);
-            Assert.Equal(0, sale.TotalItens);
+            Assert.Empty(sale.SaleItems);
+            Assert.Equal(0, sale.TotalItems);
             Assert.Equal(0m, sale.TotalSaleAmount);
         }
 
@@ -154,14 +154,14 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
         {
             // Arrange
             var sale = SaleTestData.GenerateValidSale();
-            var originalCount = sale.TotalItens;
+            var originalCount = sale.TotalItems;
             var originalTotal = sale.TotalSaleAmount;
 
             // Act
             sale.DeleteItem(Guid.NewGuid());
 
             // Assert
-            Assert.Equal(originalCount, sale.TotalItens);
+            Assert.Equal(originalCount, sale.TotalItems);
             Assert.Equal(originalTotal, sale.TotalSaleAmount);
         }
 

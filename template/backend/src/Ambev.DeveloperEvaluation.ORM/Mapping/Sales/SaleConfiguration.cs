@@ -14,7 +14,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping.Sales
             builder.Property(u => u.Id).HasColumnType("uuid").HasDefaultValueSql("gen_random_uuid()");
 
             builder.Property(s => s.SaleNumber).IsRequired();
-            builder.Property(s => s.TotalItens).IsRequired();
+            builder.Property(s => s.TotalItems).IsRequired();
             builder.Property(s => s.TotalSaleAmount).IsRequired();
             builder.Property(s => s.Cancelled).HasDefaultValue(false).IsRequired();
             builder.Property(s => s.CreatedAt).IsRequired();
@@ -28,7 +28,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping.Sales
             builder.Property(s => s.BranchName).IsRequired().HasMaxLength(100);
             builder.Property(s => s.BranchFullAddress).IsRequired().HasMaxLength(150);
 
-            builder.HasMany(p => p.SaleItens)
+            builder.HasMany(p => p.SaleItems)
                 .WithOne(p => p.Sale)
                 .HasForeignKey(p => p.SaleId)
                 .OnDelete(DeleteBehavior.Cascade);

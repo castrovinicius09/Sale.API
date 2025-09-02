@@ -14,11 +14,11 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetPaginatedSales
         }
 
         /// <summary>
-        /// The unique identifier of the user to retrieve
+        /// The number of the page to retrieve
         /// </summary>
         public int PageNumber { get; }
         /// <summary>
-        /// The unique identifier of the user to retrieve
+        /// The number os the elements per page
         /// </summary>
         public int PageSize { get; }
     }
