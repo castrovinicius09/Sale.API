@@ -1,5 +1,5 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Validation.Sales;
-using Ambev.DeveloperEvaluation.Support.TestData;
+using Ambev.DeveloperEvaluation.Support.Domain.TestData;
 using FluentValidation.TestHelper;
 using Xunit;
 

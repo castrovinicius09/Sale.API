@@ -13,7 +13,7 @@ public class GetUserProfile : Profile
     /// </summary>
     public GetUserProfile()
     {
-        CreateMap<Guid, GetUserCommand>().ConstructUsing(id => new GetUserCommand(id));
+        CreateMap<Guid, GetUserQuery>().ConstructUsing(id => new GetUserQuery(id));
         CreateMap<GetUserResult, GetUserResponse>();
     }
 }

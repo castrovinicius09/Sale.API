@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.Application.Auth.AuthenticateUser
 {
-    public class AuthenticateUserValidator : AbstractValidator<AuthenticateUserCommand>
+    public class AuthenticateUserValidator : AbstractValidator<AuthenticateUseQuery>
     {
         public AuthenticateUserValidator()
         {

@@ -1,6 +1,6 @@
 using Ambev.DeveloperEvaluation.Domain.Enums;
 using Ambev.DeveloperEvaluation.Domain.Validation;
-using Ambev.DeveloperEvaluation.Support.TestData;
+using Ambev.DeveloperEvaluation.Support.Domain.TestData;
 using FluentValidation.TestHelper;
 using Xunit;
 

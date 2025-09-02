@@ -2,7 +2,7 @@ using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Enums;
 using Bogus;
 
-namespace Ambev.DeveloperEvaluation.Support.TestData;
+namespace Ambev.DeveloperEvaluation.Support.Domain.TestData;
 
 /// <summary>
 /// Provides methods for generating test data using the Bogus library.
