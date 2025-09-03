@@ -5,23 +5,23 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 
-namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
+namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale
 {
     /// <summary>
-    /// Handler for processing CreateSaleCommand requests
+    /// Handler for processing UpdateSaleCommand requests
     /// <param name="saleRepository">The user repository</param>
     /// <param name="branchService">The external branch</param>
     /// <param name="productService">The external product</param>
     /// <param name="userService">The user service</param>
     /// <param name="mapper">The AutoMapper instance</param>
-    /// <param name="validator">The validator for CreateUserCommand</param>
+    /// <param name="validator">The validator for UpdateSaleCommand</param>
     /// </summary>
-    public sealed class CreateSaleHandler(
+    public sealed class UpdateSaleHandler(
         ISaleRepository saleRepository,
         IBranchService branchService,
         IProductService productService,
         IUserService userService,
-        IMapper mapper) : IRequestHandler<CreateSaleCommand, CreateSaleResult>
+        IMapper mapper) : IRequestHandler<UpdateSaleCommand, UpdateSaleResult>
     {
         private readonly ISaleRepository _saleRepository = saleRepository;
 
@@ -32,26 +32,32 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
         private readonly IMapper _mapper = mapper;
 
         /// <summary>
-        /// Handles the CreateSaleCommand request
+        /// Handles the UpdateSaleCommand request
         /// </summary>
-        /// <param name="command">The CreateSale command</param>
+        /// <param name="command">The UpdateSale command</param>
         /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>The created sale details</returns>
-        public async Task<CreateSaleResult> Handle(CreateSaleCommand command, CancellationToken cancellationToken)
+        /// <returns>The updated sale</returns>
+        public async Task<UpdateSaleResult> Handle(UpdateSaleCommand command, CancellationToken cancellationToken)
         {
-            var validator = new CreateSaleValidator();
+            var validator = new UpdateSaleValidator();
             var validationResult = await validator.ValidateAsync(command, cancellationToken);
 
             if (!validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
 
+            var sale = await _saleRepository.GetByIdAsync(command.Id, cancellationToken);
+            if (sale == null)
+                throw new KeyNotFoundException($"Sale with ID {command.Id} not found.");
+
             _userService.ValidateUser(command.UserId);
             _branchService.ValidateBranch(command.BranchId);
             _productService.ValidateProduct(command.Items.Select(s => s.ProductId).ToList());
 
-            var sale = _mapper.Map<Sale>(command);
-            var createdSale = await _saleRepository.CreateAsync(sale, cancellationToken);
-            var result = _mapper.Map<CreateSaleResult>(createdSale);
+            _mapper.Map<UpdateSaleCommand, Sale>(command, sale);
+
+            await _saleRepository.UpdateAsync(sale, cancellationToken);
+
+            var result = _mapper.Map<UpdateSaleResult>(sale);
 
             return result;
         }

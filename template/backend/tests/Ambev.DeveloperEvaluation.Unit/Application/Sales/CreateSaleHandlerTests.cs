@@ -3,7 +3,7 @@ using Ambev.DeveloperEvaluation.Application.Services.Abstractions;
 using Ambev.DeveloperEvaluation.Domain.Entities.Sales;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.Support.Domain.TestData;
-using Ambev.DeveloperEvaluation.Unit.Application.TestData;
+using Ambev.DeveloperEvaluation.Unit.Application.TestData.Sales;
 using AutoMapper;
 using FluentAssertions;
 using FluentValidation;
@@ -48,7 +48,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Sales
         public async Task Handle_ValidCommand_ReturnsSuccessResult()
         {
             // Given
-            var command = CreateSaleHandlerTestData.GenerateValidCommand();
+            var command = SaleHandlerTestData.GenerateValidCreateCommand();
             var sale = SaleTestData.GenerateValidSale();
             var result = new CreateSaleResult { Id = sale.Id };
 
@@ -67,6 +67,10 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Sales
             // Then
             response.Should().NotBeNull();
             response.Id.Should().Be(sale.Id);
+
+            _userService.Received(1).ValidateUser(command.UserId);
+            _branchService.Received(1).ValidateBranch(command.BranchId);
+            _productService.Received(1).ValidateProduct(Arg.Is<List<Guid>>(ids => ids.SequenceEqual(command.Items.Select(i => i.ProductId))));
         }
 
         /// <summary>
@@ -76,7 +80,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Sales
         public async Task Handle_InvalidCommand_ThrowsValidationException()
         {
             // Given
-            var command = CreateSaleHandlerTestData.GenerateInvalidCommand();
+            var command = SaleHandlerTestData.GenerateInvalidCreateCommand();
 
             // When
             var act = () => _handler.Handle(command, CancellationToken.None);
@@ -92,7 +96,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Sales
         public async Task Handle_NonexistentUser_ThrowsValidationException()
         {
             // Given
-            var command = CreateSaleHandlerTestData.GenerateValidCommand();
+            var command = SaleHandlerTestData.GenerateValidCreateCommand();
 
             _userService.When(s => s.ValidateUser(command.UserId))
                 .Do(_ => throw new ValidationException("User not found"));
@@ -111,7 +115,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Sales
         public async Task Handle_NonexistentBranch_ThrowsValidationException()
         {
             // Given
-            var command = CreateSaleHandlerTestData.GenerateValidCommand();
+            var command = SaleHandlerTestData.GenerateValidCreateCommand();
 
             _branchService.When(s => s.ValidateBranch(command.BranchId))
                 .Do(_ => throw new ValidationException("Branch not found"));

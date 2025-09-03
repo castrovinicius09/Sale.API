@@ -1,14 +1,15 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
+using Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
 using Bogus;
 
-namespace Ambev.DeveloperEvaluation.Unit.Application.TestData
+namespace Ambev.DeveloperEvaluation.Unit.Application.TestData.Sales
 {
     /// <summary>
     /// Provides methods for generating test data using the Bogus library.
     /// This class centralizes all test data generation to ensure consistency
     /// across test cases and provide both valid and invalid data scenarios.
     /// </summary>
-    public static class CreateSaleHandlerTestData
+    public static class SaleHandlerTestData
     {
         /// <summary>
         /// Configures the Faker to generate valid sale commands with:
@@ -28,10 +29,31 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.TestData
             .RuleFor(c => c.Items, f => SaleItemTestData.GenerateValidItems(f.Random.Int(1, 5)));
 
         /// <summary>
+        /// Configures the Faker to generate valid update sale commands with:
+        /// - Id: Random GUID
+        /// - Cancelled: Random boolean
+        /// - UserId: Random GUID
+        /// - UserName: Internet-style username
+        /// - BranchId: Random GUID
+        /// - BranchName: Company name
+        /// - BranchFullAddress: Full street address
+        /// - Items: List of valid sale items generated via <see cref="SaleItemTestData"/>
+        /// </summary>
+        private static readonly Faker<UpdateSaleCommand> updateSaleFaker = new Faker<UpdateSaleCommand>()
+            .RuleFor(c => c.Id, f => f.Random.Guid())
+            .RuleFor(c => c.Cancelled, f => f.Random.Bool())
+            .RuleFor(c => c.UserId, f => f.Random.Guid())
+            .RuleFor(c => c.UserName, f => f.Internet.UserName())
+            .RuleFor(c => c.BranchId, f => f.Random.Guid())
+            .RuleFor(c => c.BranchName, f => f.Company.CompanyName())
+            .RuleFor(c => c.BranchFullAddress, f => f.Address.FullAddress())
+            .RuleFor(c => c.Items, f => SaleItemTestData.GenerateValidItems(f.Random.Int(1, 5)));
+
+        /// <summary>
         /// Generates a valid <see cref="CreateSaleCommand"/> with randomized data.
         /// </summary>
         /// <returns>A valid sale command that meets all validation requirements.</returns>
-        public static CreateSaleCommand GenerateValidCommand()
+        public static CreateSaleCommand GenerateValidCreateCommand()
         {
             return createSaleFaker.Generate();
         }
@@ -40,7 +62,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.TestData
         /// Generates a valid <see cref="CreateSaleCommand"/> with randomized data.
         /// </summary>
         /// <returns>A invvalid sale command that meets all validation requirements.</returns>
-        public static CreateSaleCommand GenerateInvalidCommand()
+        public static CreateSaleCommand GenerateInvalidCreateCommand()
         {
             var sale = createSaleFaker.Generate();
             sale.UserName = string.Empty; // Invalid: Username is required
@@ -50,6 +72,15 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.TestData
             sale.Items = SaleItemTestData.GenerateInvalidItems();
 
             return sale;
+        }
+
+        /// <summary>
+        /// Generates a valid <see cref="UpdateSaleCommand"/> with randomized data.
+        /// </summary>
+        /// <returns>A valid update sale command that meets all validation requirements.</returns>
+        public static UpdateSaleCommand GenerateValidUpdateCommand()
+        {
+            return updateSaleFaker.Generate();
         }
     }
 }

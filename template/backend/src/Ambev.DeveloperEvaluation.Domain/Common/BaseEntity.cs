@@ -20,4 +20,9 @@ public abstract class BaseEntity : IComparable<BaseEntity>
 
         return other!.Id.CompareTo(Id);
     }
+
+    public bool CompareId(Guid id)
+    {
+        return id == Id;
+    }
 }
