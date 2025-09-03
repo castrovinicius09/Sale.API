@@ -3,7 +3,7 @@
     /// <summary>
     /// Response class for list of sales
     /// </summary>
-    public record GetSaleByIdResult
+    public record GetPaginatedSalesResult
     {
         /// <summary>
         /// The unique identifier of the sale

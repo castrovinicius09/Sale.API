@@ -35,12 +35,12 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Sales
             // Given
             var query = new GetPaginatedSaleQuery(1, 5);
             var sales = Enumerable.Range(1, 5).Select(_ => SaleTestData.GenerateValidSale()).ToList();
-            var expectedResult = sales.Select(s => new GetSaleByIdResult { Id = s.Id }).ToList();
+            var expectedResult = sales.Select(s => new GetPaginatedSalesResult { Id = s.Id }).ToList();
 
             _saleRepository.GetAllPaginatedAsync(query.PageNumber, query.PageSize, Arg.Any<CancellationToken>())
                 .Returns(sales);
 
-            _mapper.Map<IEnumerable<GetSaleByIdResult>>(sales)
+            _mapper.Map<IEnumerable<GetPaginatedSalesResult>>(sales)
                 .Returns(expectedResult);
 
             // When
@@ -51,7 +51,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Sales
             result.Should().HaveCount(5);
             result.Select(r => r.Id).Should().BeEquivalentTo(expectedResult.Select(r => r.Id));
             await _saleRepository.Received(1).GetAllPaginatedAsync(query.PageNumber, query.PageSize, Arg.Any<CancellationToken>());
-            _mapper.Received(1).Map<IEnumerable<GetSaleByIdResult>>(Arg.Is<IEnumerable<Sale>>(list => list.SequenceEqual(sales)));
+            _mapper.Received(1).Map<IEnumerable<GetPaginatedSalesResult>>(Arg.Is<IEnumerable<Sale>>(list => list.SequenceEqual(sales)));
         }
 
         /// <summary>
