@@ -8,7 +8,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale
     public sealed class UpdateSaleValidator : AbstractValidator<UpdateSaleCommand>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SaleDataValidator"/> with defined validation rules.
+        /// Initializes a new instance of the <see cref="UpdateSaleValidator"/> with defined validation rules.
         /// </summary>
         /// <remarks>
         /// Validation rules include:

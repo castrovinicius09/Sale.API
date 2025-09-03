@@ -1,4 +1,5 @@
-﻿using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
+﻿using Ambev.DeveloperEvaluation.Application.Sales.CancellSale;
+using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
 using Bogus;
 
@@ -81,6 +82,15 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.TestData.Sales
         public static UpdateSaleCommand GenerateValidUpdateCommand()
         {
             return updateSaleFaker.Generate();
+        }
+
+        /// <summary>
+        /// Generates a valid <see cref="CancellSaleCommand"/> with randomized data.
+        /// </summary>
+        /// <returns>A valid update sale command that meets all validation requirements.</returns>
+        public static CancellSaleCommand GenerateValidCancellCommand()
+        {
+            return new CancellSaleCommand { Id = Guid.NewGuid() };
         }
     }
 }
