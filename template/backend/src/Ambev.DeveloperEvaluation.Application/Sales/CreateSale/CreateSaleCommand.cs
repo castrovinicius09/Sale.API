@@ -17,36 +17,36 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
     /// <see cref="AbstractValidator{T}"/> to ensure that all fields are correctly 
     /// populated and follow the business rules for sale creation.
     /// </remarks>
-    public record CreateSaleCommand : IRequest<CreateSaleResult>
+    public class CreateSaleCommand : IRequest<CreateSaleResult>
     {
         /// <summary>
         /// Gets the unique identifier of the user making the sale.
         /// </summary>
-        public Guid UserId { get; }
+        public Guid UserId { get; set; }
 
         /// <summary>
         /// Gets the name of the user making the sale.
         /// </summary>
-        public string UserName { get; } = string.Empty;
+        public string UserName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets the unique identifier of the branch where the sale occurred.
         /// </summary>
-        public Guid BranchId { get; }
+        public Guid BranchId { get; set; }
 
         /// <summary>
         /// Gets the name of the branch where the sale occurred.
         /// </summary>
-        public string BranchName { get; } = string.Empty;
+        public string BranchName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets the full address of the branch.
         /// </summary>
-        public string BranchFullAddress { get; } = string.Empty;
+        public string BranchFullAddress { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets the list of items included in the sale.
         /// </summary>
-        public List<SaleItemDto> Items { get; } = new();
+        public List<SaleItemDto> Items { get; set; } = new();
     }
 }

@@ -1,4 +1,5 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Entities.Sales;
+﻿using Ambev.DeveloperEvaluation.Application.Services.Abstractions;
+using Ambev.DeveloperEvaluation.Domain.Entities.Sales;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using AutoMapper;
 using FluentValidation;
@@ -14,9 +15,17 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
     /// </summary>
     public sealed class CreateSaleHandler(
         ISaleRepository saleRepository,
+        IBranchService branchService,
+        IProductService productService,
+        IUserService userService,
         IMapper mapper) : IRequestHandler<CreateSaleCommand, CreateSaleResult>
     {
         private readonly ISaleRepository _saleRepository = saleRepository;
+
+        private readonly IBranchService _branchService = branchService;
+        private readonly IProductService _productService = productService;
+        private readonly IUserService _userService = userService;
+
         private readonly IMapper _mapper = mapper;
 
         /// <summary>
@@ -33,9 +42,9 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
             if (!validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
 
-            //TODO: CHECK IF USER EXIST
-            //TODO: CHECK IF PRODUCT EXIST
-            //TODO: CHECK IF BRANCH EXIST
+            _userService.ValidateUser(command.UserId);
+            _branchService.ValidateBranch(command.BranchId);
+            _productService.ValidateProduct(command.Items.Select(s => s.ProductId));
 
             var sale = _mapper.Map<Sale>(command);
             var createdSale = await _saleRepository.CreateAsync(sale, cancellationToken);

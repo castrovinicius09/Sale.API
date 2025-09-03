@@ -15,21 +15,21 @@
         /// <summary>
         /// Gets the quantity of the product being sold.
         /// </summary>
-        public int Quantity { get; }
+        public int Quantity { get; set; }
 
         /// <summary>
         /// Gets the unit price of the product.
         /// </summary>
-        public decimal UnitPrice { get; }
+        public decimal UnitPrice { get; set; }
 
         /// <summary>
         /// Gets the unique identifier of the product.
         /// </summary>
-        public Guid ProductId { get; }
+        public Guid ProductId { get; set; }
 
         /// <summary>
         /// Gets the name of the product.
         /// </summary>
-        public string ProductName { get; } = string.Empty;
+        public string ProductName { get; set; } = string.Empty;
     }
 }
