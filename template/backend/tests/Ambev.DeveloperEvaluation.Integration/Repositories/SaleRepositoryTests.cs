@@ -86,26 +86,40 @@ namespace Ambev.DeveloperEvaluation.Integration.Repositories
         }
 
         /// <summary>
-        /// Tests that deleting a sale removes it from the database and returns true.
+        /// Tests that cancelling an existing sale sets its cancelled flag and persists the change.
         /// </summary>
-        [Fact(DisplayName = "Should remove sale when deleted")]
-        public async Task Given_ExistingSale_When_Deleted_Then_ShouldBeRemoved()
+        [Fact(DisplayName = "Should cancel sale when valid ID is provided")]
+        public async Task Given_ExistingSale_When_CancellAsyncCalled_Then_ShouldMarkAsCancelled()
         {
             // Arrange
-            var context = MockingData.CreateInMemoryContext();
-            var repository = new SaleRepository(context);
-
             var sale = SaleTestData.GenerateValidSale();
 
-            await repository.CreateAsync(sale);
+            await _repository.CreateAsync(sale);
 
             // Act
-            var deleted = await repository.DeleteAsync(sale.Id);
+            var result = await _repository.CancellAsync(sale.Id);
 
             // Assert
-            deleted.Should().BeTrue();
-            var check = await repository.GetByIdAsync(sale.Id);
-            check.Should().BeNull();
+            result.Should().BeTrue();
+
+            var dbSale = await _context.Sales.FindAsync(sale.Id);
+            dbSale!.Cancelled.Should().BeTrue();
+        }
+
+        /// <summary>
+        /// Tests that cancelling a nonexistent sale returns false.
+        /// </summary>
+        [Fact(DisplayName = "Should return false when sale ID does not exist")]
+        public async Task Given_NonexistentSaleId_When_CancellAsyncCalled_Then_ShouldReturnFalse()
+        {
+            // Arrange
+            var nonexistentId = Guid.NewGuid();
+
+            // Act
+            var result = await _repository.CancellAsync(nonexistentId);
+
+            // Assert
+            result.Should().BeFalse();
         }
 
         /// <summary>

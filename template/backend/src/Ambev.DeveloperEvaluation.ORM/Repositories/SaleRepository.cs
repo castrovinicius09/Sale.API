@@ -65,18 +65,20 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         }
 
         /// <summary>
-        /// Deletes a sale from the repository
+        /// Cancell a existing sale
         /// </summary>
-        /// <param name="id">The unique identifier of the sale to delete</param>
+        /// <param name="id">The unique identifier of the sale to cancell</param>
         /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>True if the sale was deleted, false if not found</returns>
-        public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+        /// <returns>True if the sale was cancelled, false if not found</returns>
+        public async Task<bool> CancellAsync(Guid id, CancellationToken cancellationToken = default)
         {
             var sale = await GetByIdAsync(id, cancellationToken);
             if (sale == null)
                 return false;
 
-            _context.Sales.Remove(sale);
+            sale.CancellSale();
+
+            _context.Update(sale);
             await _context.SaveChangesAsync(cancellationToken);
             return true;
         }
