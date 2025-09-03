@@ -1,7 +1,7 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Dtos.Sales;
 using Bogus;
 
-namespace Ambev.DeveloperEvaluation.Unit.Application.TestData
+namespace Ambev.DeveloperEvaluation.Unit.Application.TestData.Sales
 {
     /// <summary>
     /// Provides test data for <see cref="SaleItemDto"/> used in sale item creation.
