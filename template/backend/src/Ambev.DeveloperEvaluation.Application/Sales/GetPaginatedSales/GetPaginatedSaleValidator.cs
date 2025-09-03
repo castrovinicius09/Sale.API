@@ -18,7 +18,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetPaginatedSales
 
             RuleFor(x => x.PageSize)
                 .NotEmpty().WithMessage("Page size is required")
-                .GreaterThanOrEqualTo(0).WithMessage("Page size can´t be negative");
+                .GreaterThanOrEqualTo(1).WithMessage("Page size can´t be negative or zero");
         }
     }
 }

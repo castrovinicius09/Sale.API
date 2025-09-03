@@ -1,11 +1,11 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Dtos.Sales;
 
-namespace Ambev.DeveloperEvaluation.Application.Sales.GetSaleById
+namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSaleById
 {
     /// <summary>
-    /// Response class for list of sales
+    /// Response class for a sale
     /// </summary>
-    public record GetSaleByIdResult
+    public class GetSaleByIdResponse
     {
         /// <summary>
         /// The unique identifier of the sale

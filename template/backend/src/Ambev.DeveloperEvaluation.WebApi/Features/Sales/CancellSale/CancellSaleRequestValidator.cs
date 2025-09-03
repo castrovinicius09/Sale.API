@@ -1,11 +1,12 @@
-﻿using FluentValidation;
+﻿using Ambev.DeveloperEvaluation.Application.Sales.CancellSale;
+using FluentValidation;
 
-namespace Ambev.DeveloperEvaluation.Application.Sales.CancellSale
+namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CancellSale
 {
     /// <summary>
-    /// Validator for sale data that defines validation rules for core sale properties.
+    /// Validator for CancellSaleRequest that defines validation rules for sale fields
     /// </summary>
-    public sealed class CancellSaleValidator : AbstractValidator<CancellSaleCommand>
+    public class CancellSaleRequestValidator : AbstractValidator<CancellSaleRequest>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CancellSaleValidator"/> with defined validation rules.
@@ -14,7 +15,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CancellSale
         /// Validation rules include:
         /// - Id: Must be provided and not empty
         /// </remarks>
-        public CancellSaleValidator()
+        public CancellSaleRequestValidator()
         {
             RuleFor(x => x.Id).NotEmpty().WithMessage("Sale Id must be provided.");
         }
