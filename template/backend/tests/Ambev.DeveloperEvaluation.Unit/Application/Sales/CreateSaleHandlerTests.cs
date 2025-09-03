@@ -67,6 +67,10 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Sales
             // Then
             response.Should().NotBeNull();
             response.Id.Should().Be(sale.Id);
+
+            _userService.Received(1).ValidateUser(command.UserId);
+            _branchService.Received(1).ValidateBranch(command.BranchId);
+            _productService.Received(1).ValidateProduct(Arg.Is<List<Guid>>(ids => ids.SequenceEqual(command.Items.Select(i => i.ProductId))));
         }
 
         /// <summary>
@@ -76,7 +80,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Sales
         public async Task Handle_InvalidCommand_ThrowsValidationException()
         {
             // Given
-            var command = SaleHandlerTestData.GenerateValidCreateCommand();
+            var command = SaleHandlerTestData.GenerateInvalidCreateCommand();
 
             // When
             var act = () => _handler.Handle(command, CancellationToken.None);

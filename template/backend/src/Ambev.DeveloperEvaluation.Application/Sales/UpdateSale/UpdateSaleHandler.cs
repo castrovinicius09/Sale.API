@@ -51,7 +51,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale
 
             _userService.ValidateUser(command.UserId);
             _branchService.ValidateBranch(command.BranchId);
-            _productService.ValidateProduct(command.Items.Select(s => s.ProductId));
+            _productService.ValidateProduct(command.Items.Select(s => s.ProductId).ToList());
 
             _mapper.Map<UpdateSaleCommand, Sale>(command, sale);
 

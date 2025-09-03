@@ -66,6 +66,13 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Sales
             // Then
             result.Should().NotBeNull();
             result.Id.Should().Be(command.Id);
+
+            _userService.Received(1).ValidateUser(command.UserId);
+            _branchService.Received(1).ValidateBranch(command.BranchId);
+            _productService.Received(1).ValidateProduct(Arg.Is<List<Guid>>(ids => ids.SequenceEqual(command.Items.Select(i => i.ProductId))));
+
+            _mapper.Received(2).Map<UpdateSaleCommand, Sale>(command, existingSale);
+            _mapper.Received(1).Map<UpdateSaleResult>(existingSale);
         }
 
         /// <summary>
@@ -103,63 +110,5 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Sales
             await act.Should().ThrowAsync<KeyNotFoundException>()
                 .WithMessage($"Sale with ID {command.Id} not found.");
         }
-
-        /// <summary>
-        /// Tests that user, branch, and product validations are called.
-        /// </summary>
-        [Fact(DisplayName = "Given valid update command When handling Then validates user, branch and products")]
-        public async Task Handle_ValidCommand_ValidatesDependencies()
-        {
-            // Given
-            var command = SaleHandlerTestData.GenerateValidUpdateCommand();
-            var existingSale = SaleTestData.GenerateValidSale();
-
-            _saleRepository.GetByIdAsync(command.Id, Arg.Any<CancellationToken>())
-                .Returns(existingSale);
-
-            //_userService.ValidateUser(command.UserId);
-            //_branchService.ValidateBranch(command.BranchId);
-            //_productService.ValidateProduct(command.Items.Select(s => s.ProductId));
-
-            _saleRepository.UpdateAsync(existingSale, Arg.Any<CancellationToken>())
-                .Returns(existingSale);
-
-            _mapper.Map<UpdateSaleCommand, Sale>(command, existingSale);
-
-            _mapper.Map<UpdateSaleResult>(existingSale)
-                .Returns(new UpdateSaleResult { Id = command.Id });
-
-            // When
-            await _handler.Handle(command, CancellationToken.None);
-
-            // Then
-            _userService.Received(1).ValidateUser(command.UserId);
-            _branchService.Received(1).ValidateBranch(command.BranchId);
-            _productService.Received(1).ValidateProduct(command.Items.Select(i => i.ProductId));
-        }
-
-        ///// <summary>
-        ///// Tests that the mapper updates the existing sale and maps the result.
-        ///// </summary>
-        //[Fact(DisplayName = "Given valid update command When handling Then maps command to sale and result")]
-        //public async Task Handle_ValidCommand_MapsCommandAndResult()
-        //{
-        //    // Given
-        //    var command = UpdateSaleTestData.GenerateValidCommand();
-        //    var existingSale = new Sale { Id = command.Id };
-
-        //    _saleRepository.GetByIdAsync(command.Id, Arg.Any<CancellationToken>()).Returns(existingSale);
-        //    _mapper.Map<UpdateSaleCommand, Sale>(command, existingSale);
-        //    _saleRepository.UpdateAsync(existingSale, Arg.Any<CancellationToken>()).Returns(Task.CompletedTask);
-        //    _mapper.Map<UpdateSaleResult>(existingSale).Returns(new UpdateSaleResult { Id = command.Id });
-
-        //    // When
-        //    await _handler.Handle(command, CancellationToken.None);
-
-        //    // Then
-        //    _mapper.Received(1).Map<UpdateSaleCommand, Sale>(command, existingSale);
-        //    _mapper.Received(1).Map<UpdateSaleResult>(existingSale);
-
-        //}
     }
 }

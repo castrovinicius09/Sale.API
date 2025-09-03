@@ -47,7 +47,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
 
             _userService.ValidateUser(command.UserId);
             _branchService.ValidateBranch(command.BranchId);
-            _productService.ValidateProduct(command.Items.Select(s => s.ProductId));
+            _productService.ValidateProduct(command.Items.Select(s => s.ProductId).ToList());
 
             var sale = _mapper.Map<Sale>(command);
             var createdSale = await _saleRepository.CreateAsync(sale, cancellationToken);
