@@ -1,6 +1,7 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Sales.CancellSale;
 using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
+using Ambev.DeveloperEvaluation.Support.Application;
 using Bogus;
 
 namespace Ambev.DeveloperEvaluation.Unit.Application.TestData.Sales
@@ -27,7 +28,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.TestData.Sales
             .RuleFor(c => c.BranchId, f => f.Random.Guid())
             .RuleFor(c => c.BranchName, f => f.Company.CompanyName())
             .RuleFor(c => c.BranchFullAddress, f => f.Address.FullAddress())
-            .RuleFor(c => c.Items, f => SaleItemTestData.GenerateValidItems(f.Random.Int(1, 5)));
+            .RuleFor(c => c.Items, f => SaleItemApplicationTestData.GenerateValidItems(f.Random.Int(1, 5)));
 
         /// <summary>
         /// Configures the Faker to generate valid update sale commands with:
@@ -48,7 +49,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.TestData.Sales
             .RuleFor(c => c.BranchId, f => f.Random.Guid())
             .RuleFor(c => c.BranchName, f => f.Company.CompanyName())
             .RuleFor(c => c.BranchFullAddress, f => f.Address.FullAddress())
-            .RuleFor(c => c.Items, f => SaleItemTestData.GenerateValidItems(f.Random.Int(1, 5)));
+            .RuleFor(c => c.Items, f => SaleItemApplicationTestData.GenerateValidItems(f.Random.Int(1, 5)));
 
         /// <summary>
         /// Generates a valid <see cref="CreateSaleCommand"/> with randomized data.
@@ -70,7 +71,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.TestData.Sales
             sale.UserId = Guid.Empty; // Invalid: UserId is required
             sale.BranchId = Guid.Empty; // Invalid: BranchId is required
             sale.BranchName = string.Empty; // Invalid: BranchName is required
-            sale.Items = SaleItemTestData.GenerateInvalidItems();
+            sale.Items = SaleItemApplicationTestData.GenerateInvalidItems();
 
             return sale;
         }

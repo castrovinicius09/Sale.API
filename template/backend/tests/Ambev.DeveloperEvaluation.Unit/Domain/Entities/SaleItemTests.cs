@@ -17,7 +17,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
         public void Given_ValidSaleItemData_When_Validated_Then_ShouldReturnValid()
         {
             // Arrange
-            var item = SaleItemTestData.GenerateValidSaleItem();
+            var item = SaleItemDomainTestData.GenerateValidSaleItem();
 
             // Act
             var result = item.Validate();
@@ -34,7 +34,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
         public void Given_InvalidSaleItemData_When_Validated_Then_ShouldReturnInvalid()
         {
             // Arrange
-            var item = SaleItemTestData.GenerateInvalidSaleItem();
+            var item = SaleItemDomainTestData.GenerateInvalidSaleItem();
 
             // Act
             var result = item.Validate();
@@ -51,7 +51,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
         public void Given_ValidData_When_Created_Then_PropertiesShouldBeSet()
         {
             // Arrange
-            var validItem = SaleItemTestData.GenerateValidSaleItem();
+            var validItem = SaleItemDomainTestData.GenerateValidSaleItem();
 
             // Act
             var item = SaleItem.Create(
@@ -75,7 +75,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
         public void Given_ExistingSaleItem_When_Updated_Then_PropertiesShouldChange()
         {
             // Arrange
-            var saleItem = SaleItemTestData.GenerateValidSaleItem();
+            var saleItem = SaleItemDomainTestData.GenerateValidSaleItem();
 
             var newQuantity = 10;
             var newUnitPrice = 25.5m;
@@ -101,7 +101,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
         public void Given_QuantityAbove20_When_CreatingOrUpdating_Then_ShouldThrow()
         {
             // Arrange
-            var item = SaleItemTestData.GenerateValidSaleItem();
+            var item = SaleItemDomainTestData.GenerateValidSaleItem();
             var invalidQuantity = 21;
 
             // Act & Assert - Create

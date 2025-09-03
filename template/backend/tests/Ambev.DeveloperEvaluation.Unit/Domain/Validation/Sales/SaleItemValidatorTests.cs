@@ -21,7 +21,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Validation.Sales
         public void Given_ValidSaleItem_When_Validated_Then_ShouldNotHaveErrors()
         {
             // Arrange
-            var saleItem = SaleItemTestData.GenerateValidSaleItem();
+            var saleItem = SaleItemDomainTestData.GenerateValidSaleItem();
 
             // Act
             var result = _validator.TestValidate(saleItem);
@@ -37,7 +37,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Validation.Sales
         public void Given_InvalidQuantity_When_Validated_Then_ShouldHaveError()
         {
             // Arrange
-            var saleItem = SaleItemTestData.GenerateInvalidSaleItem();
+            var saleItem = SaleItemDomainTestData.GenerateInvalidSaleItem();
 
             // Act
             var result = _validator.TestValidate(saleItem);
@@ -53,7 +53,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Validation.Sales
         public void Given_InvalidUnitPrice_When_Validated_Then_ShouldHaveError()
         {
             // Arrange
-            var saleItem = SaleItemTestData.GenerateInvalidSaleItem();
+            var saleItem = SaleItemDomainTestData.GenerateInvalidSaleItem();
 
             // Act
             var result = _validator.TestValidate(saleItem);
@@ -69,7 +69,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Validation.Sales
         public void Given_InvalidTotalAmount_When_Validated_Then_ShouldHaveError()
         {
             // Arrange
-            var saleItem = SaleItemTestData.GenerateInvalidSaleItem();
+            var saleItem = SaleItemDomainTestData.GenerateInvalidSaleItem();
 
             // Act
             var result = _validator.TestValidate(saleItem);
@@ -85,7 +85,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Validation.Sales
         public void Given_EmptyProductId_When_Validated_Then_ShouldHaveError()
         {
             // Arrange
-            var saleItem = SaleItemTestData.GenerateInvalidSaleItem();
+            var saleItem = SaleItemDomainTestData.GenerateInvalidSaleItem();
 
             // Act
             var result = _validator.TestValidate(saleItem);
@@ -101,7 +101,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Validation.Sales
         public void Given_EmptyProductName_When_Validated_Then_ShouldHaveError()
         {
             // Arrange
-            var saleItem = SaleItemTestData.GenerateInvalidSaleItem();
+            var saleItem = SaleItemDomainTestData.GenerateInvalidSaleItem();
 
             // Act
             var result = _validator.TestValidate(saleItem);
@@ -117,7 +117,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Validation.Sales
         public void Given_TooLongProductName_When_Validated_Then_ShouldHaveError()
         {
             // Arrange
-            var saleItem = SaleItemTestData.GenerateInvalidSaleItem();
+            var saleItem = SaleItemDomainTestData.GenerateInvalidSaleItem();
 
             // Act
             var result = _validator.TestValidate(saleItem);

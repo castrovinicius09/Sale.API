@@ -51,12 +51,13 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
             var query = _mapper.Map<GetSaleByIdQuery>(request.Id);
             var response = await _mediator.Send(query, cancellationToken);
 
-            return Ok(new ApiResponseWithData<GetSaleByIdResponse>
-            {
-                Success = true,
-                Message = "Sale retrieved successfully",
-                Data = _mapper.Map<GetSaleByIdResponse>(response)
-            });
+            //return Ok(new ApiResponseWithData<GetSaleByIdResponse>
+            //{
+            //    Success = true,
+            //    Message = "Sale retrieved successfully",
+            //    Data = _mapper.Map<GetSaleByIdResponse>(response)
+            //});
+            return Ok(_mapper.Map<GetSaleByIdResponse>(response));
         }
 
         /// <summary>
@@ -87,9 +88,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
                 request.PageSize);
 
             return OkPaginated(paginatedList);
-
         }
-
 
         /// <summary>
         /// Creates a new sale
