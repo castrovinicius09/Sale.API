@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Ambev.DeveloperEvaluation.WebApi.Common;
+﻿namespace Ambev.DeveloperEvaluation.WebApi.Common;
 
 public class PaginatedList<T> : List<T>
 {
@@ -22,10 +20,10 @@ public class PaginatedList<T> : List<T>
         AddRange(items);
     }
 
-    public static async Task<PaginatedList<T>> CreateAsync(IQueryable<T> source, int pageNumber, int pageSize)
+    public static Task<PaginatedList<T>> CreateAsync(IEnumerable<T> source, int pageNumber, int pageSize)
     {
-        var count = await source.CountAsync();
-        var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
-        return new PaginatedList<T>(items, count, pageNumber, pageSize);
+        var count = source.Count();
+        var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+        return Task.FromResult(new PaginatedList<T>(items, count, pageNumber, pageSize));
     }
 }

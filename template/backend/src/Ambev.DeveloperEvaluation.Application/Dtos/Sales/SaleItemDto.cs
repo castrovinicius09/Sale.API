@@ -23,6 +23,11 @@
         public decimal UnitPrice { get; set; }
 
         /// <summary>
+        /// Gets the total amount for this item (Quantity * UnitPrice) - discount.
+        /// </summary>
+        public decimal TotalAmount { get; set; }
+
+        /// <summary>
         /// Gets the unique identifier of the product.
         /// </summary>
         public Guid ProductId { get; set; }

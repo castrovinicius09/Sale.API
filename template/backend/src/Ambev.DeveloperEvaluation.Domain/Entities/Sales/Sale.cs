@@ -19,10 +19,6 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
             Guid branchId,
             string branchName,
             string branchAddress)
-        //int quantity,
-        //decimal unitPrice,
-        //Guid productId,
-        //string productName)
         {
             SaleNumber = saleNumber;
             UserId = userId;
@@ -32,8 +28,6 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
             BranchFullAddress = branchAddress;
             Cancelled = false;
             CreatedAt = DateTime.UtcNow;
-
-            //AddItem(quantity, unitPrice, productId, productName);
         }
 
         public long SaleNumber { get; private set; } //cannot be updated
@@ -71,11 +65,6 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
             Guid branchId,
             string branchName,
             string branchAddress)
-        /*saleitem properties*/
-        //int quantity,
-        //decimal unitPrice,
-        //Guid productId,
-        //string productName)
         {
             //TODO: Create SaleCreatedEvent
             return new Sale(
@@ -85,10 +74,6 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
                 branchId,
                 branchName,
                 branchAddress);
-            //quantity,
-            //unitPrice,
-            //productId,
-            //productName);
         }
 
         public void Update(

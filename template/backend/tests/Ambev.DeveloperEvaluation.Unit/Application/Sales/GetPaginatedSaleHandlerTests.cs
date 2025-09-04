@@ -33,7 +33,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Sales
         public async Task Handle_ValidQuery_ReturnsSalesResultList()
         {
             // Given
-            var query = new GetPaginatedSaleQuery(1, 5);
+            var query = new GetPaginatedSalesQuery(1, 5);
             var sales = Enumerable.Range(1, 5).Select(_ => SaleTestData.GenerateValidSale()).ToList();
             var expectedResult = sales.Select(s => new GetPaginatedSalesResult { Id = s.Id }).ToList();
 
@@ -63,7 +63,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Sales
         public async Task Handle_InvalidQuery_ThrowsValidationException(int pageNumber, int pageSize)
         {
             // Given
-            var query = new GetPaginatedSaleQuery(1, default); // Missing page number and size
+            var query = new GetPaginatedSalesQuery(1, default); // Missing page number and size
 
             // When
             var act = () => _handler.Handle(query, CancellationToken.None);

@@ -5,9 +5,9 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetPaginatedSales
     /// <summary>
     /// Query for retrieving a paginated list of sales
     /// </summary>
-    public record GetPaginatedSaleQuery : IRequest<IEnumerable<GetPaginatedSalesResult>>
+    public record GetPaginatedSalesQuery : IRequest<IEnumerable<GetPaginatedSalesResult>>
     {
-        public GetPaginatedSaleQuery(int pageNumber, int pageSize)
+        public GetPaginatedSalesQuery(int pageNumber, int pageSize)
         {
             PageNumber = pageNumber;
             PageSize = pageSize;

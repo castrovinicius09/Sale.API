@@ -25,6 +25,9 @@ namespace Ambev.DeveloperEvaluation.Application.Dtos.Sales
             RuleFor(x => x.UnitPrice)
                 .GreaterThan(0).WithMessage("UnitPrice must be greater than zero.");
 
+            RuleFor(x => x.TotalAmount)
+               .GreaterThan(0).WithMessage("Total amount must be greater than zero.");
+
             RuleFor(x => x.ProductId)
                 .NotEmpty().WithMessage("ProductId must be provided.");
 
