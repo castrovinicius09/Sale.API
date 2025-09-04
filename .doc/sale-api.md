@@ -2,199 +2,175 @@
 
 ### Sales
 
-#### GET{id} /product
+#### GET /api/sales/{id}
 - Description: Retrieve a sale by id
+- Path Parameters:
+  - `id`: Sale ID
 - Response: 
   ```json
   {
-    "data": [
+  "success": true,
+  "message": "string",
+  "errors": [
+    {
+      "error": "string",
+      "detail": "string"
+    }
+  ],
+  "data": {
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "saleNumber": 0,
+    "userName": "string",
+    "branchName": "string",
+    "branchFullAddress": "string",
+    "totalItems": 0,
+    "totalSaleAmount": 0,
+    "cancelled": true,
+    "createdAt": "2025-09-04T18:23:10.580Z",
+    "updatedAt": "2025-09-04T18:23:10.580Z",
+    "cancelledAt": "2025-09-04T18:23:10.580Z",
+    "saleItems": [
       {
-        "id": "integer",
-        "title": "string",
-        "price": "number",
-        "description": "string",
-        "category": "string",
-        "image": "string",
-        "rating": {
-          "rate": "number",
-          "count": "integer"
-        }
+        "quantity": 0,
+        "unitPrice": 0,
+        "totalAmount": 0,
+        "productId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "productName": "string"
       }
-    ],
-    "totalItems": "integer",
-    "currentPage": "integer",
-    "totalPages": "integer"
+    ]
+  }
   }
   ```
 
-  #### GET /PaginatedSale
-- Description: Retrieve a list of all products
+  #### GET api//PaginatedSale/{pageNumber}/{pageSize}
+- Description: Retrieve a list of the paginated sale
 - Query Parameters:
-  - `_page` (optional): Page number for pagination (default: 1)
-  - `_size` (optional): Number of items per page (default: 10)
-  - `_order` (optional): Ordering of results (e.g., "price desc, title asc")
+  - `_pageNumber` (optional): Page number for pagination (default: 1)
+  - `_pageSize` (optional): Number of items per page (default: 1)
 - Response: 
   ```json
   {
-    "data": [
-      {
-        "id": "integer",
-        "title": "string",
-        "price": "number",
-        "description": "string",
-        "category": "string",
-        "image": "string",
-        "rating": {
-          "rate": "number",
-          "count": "integer"
-        }
-      }
-    ],
-    "totalItems": "integer",
-    "currentPage": "integer",
-    "totalPages": "integer"
+  "success": true,
+  "message": "string",
+  "errors": [
+    {
+      "error": "string",
+      "detail": "string"
+    }
+  ],
+  "data": [
+    {
+      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "saleNumber": 0,
+      "userName": "string",
+      "branchName": "string",
+      "branchFullAddress": "string",
+      "totalItems": 0,
+      "totalSaleAmount": 0,
+      "cancelled": true,
+      "createdAt": "2025-09-04T18:24:29.162Z",
+      "updatedAt": "2025-09-04T18:24:29.162Z",
+      "cancelledAt": "2025-09-04T18:24:29.162Z"
+    }
+  ],
+  "currentPage": 0,
+  "totalPages": 0,
+  "totalCount": 0
   }
   ```
 
-#### POST /products
-- Description: Add a new product
+#### POST api/Sales
+- Description: Add a new sale and items
 - Request Body:
   ```json
   {
-    "title": "string",
-    "price": "number",
-    "description": "string",
-    "category": "string",
-    "image": "string",
-    "rating": {
-      "rate": "number",
-      "count": "integer"
+  "saleNumber": 0,
+  "userId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "userName": "string",
+  "branchId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "branchName": "string",
+  "branchFullAddress": "string",
+  "items": [
+    {
+      "quantity": 0,
+      "unitPrice": 0,
+      "productId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "productName": "string"
     }
+  ]
   }
   ```
 - Response: 
   ```json
   {
-    "id": "integer",
-    "title": "string",
-    "price": "number",
-    "description": "string",
-    "category": "string",
-    "image": "string",
-    "rating": {
-      "rate": "number",
-      "count": "integer"
+  "success": true,
+  "message": "string",
+  "errors": [
+    {
+      "error": "string",
+      "detail": "string"
     }
+  ],
+  "data": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
   }
   ```
 
-#### GET /products/{id}
-- Description: Retrieve a specific product by ID
-- Path Parameters:
-  - `id`: Product ID
-- Response: 
-  ```json
-  {
-    "id": "integer",
-    "title": "string",
-    "price": "number",
-    "description": "string",
-    "category": "string",
-    "image": "string",
-    "rating": {
-      "rate": "number",
-      "count": "integer"
-    }
-  }
-  ```
-
-#### PUT /products/{id}
-- Description: Update a specific product
-- Path Parameters:
-  - `id`: Product ID
+#### PATCH api/products
+- Description: Update a specific sale and items
 - Request Body:
   ```json
   {
-    "title": "string",
-    "price": "number",
-    "description": "string",
-    "category": "string",
-    "image": "string",
-    "rating": {
-      "rate": "number",
-      "count": "integer"
+  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "cancelled": true,
+  "userId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "userName": "string",
+  "branchId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "branchName": "string",
+  "branchFullAddress": "string",
+  "items": [
+    {
+      "quantity": 0,
+      "unitPrice": 0,
+      "productId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "productName": "string"
     }
+  ]
   }
   ```
 - Response: 
   ```json
   {
-    "id": "integer",
-    "title": "string",
-    "price": "number",
-    "description": "string",
-    "category": "string",
-    "image": "string",
-    "rating": {
-      "rate": "number",
-      "count": "integer"
+  "success": true,
+  "message": "string",
+  "errors": [
+    {
+      "error": "string",
+      "detail": "string"
     }
+  ],
+  "data": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
   }
   ```
 
 #### DELETE /products/{id}
-- Description: Delete a specific product
+- Description: Delete a specific sale and items
 - Path Parameters:
-  - `id`: Product ID
+  - `id`: Sale ID
 - Response: 
   ```json
   {
-    "message": "string"
-  }
-  ```
-
-#### GET /products/categories
-- Description: Retrieve all product categories
-- Response: 
-  ```json
-  [
-    "string"
+  "success": true,
+  "message": "string",
+  "errors": [
+    {
+      "error": "string",
+      "detail": "string"
+    }
   ]
-  ```
-
-#### GET /products/category/{category}
-- Description: Retrieve products in a specific category
-- Path Parameters:
-  - `category`: Category name
-- Query Parameters:
-  - `_page` (optional): Page number for pagination (default: 1)
-  - `_size` (optional): Number of items per page (default: 10)
-  - `_order` (optional): Ordering of results (e.g., "price desc, title asc")
-- Response: 
-  ```json
-  {
-    "data": [
-      {
-        "id": "integer",
-        "title": "string",
-        "price": "number",
-        "description": "string",
-        "category": "string",
-        "image": "string",
-        "rating": {
-          "rate": "number",
-          "count": "integer"
-        }
-      }
-    ],
-    "totalItems": "integer",
-    "currentPage": "integer",
-    "totalPages": "integer"
   }
   ```
 
 <br>
 <div style="display: flex; justify-content: space-between;">
   <a href="./general-api.md">Previous: General API</a>
-  <a href="./carts-api.md">Next: Carts API</a>
 </div>

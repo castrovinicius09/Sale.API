@@ -1,13 +1,14 @@
 # Developer Evaluation Project
 
-`READ CAREFULLY`
+This API was based on `DDD` principles do create a Sales CRUD.  
+When referencing entities from other domains, the `External Identities` pattern was applied together with denormalization of entity descriptions, ensuring consistency while simplifying queries and reporting.  
+This approach was adopted to implement a complete CRUD for managing sales records, providing clear and structured access to the required information.
 
-## Use Case
-**You are a developer on the DeveloperStore team. Now we need to implement the API prototypes.**
+If you want to take a look in the future ideas for this project take a look [here](/.doc/backlog.md)
 
-As we work with `DDD`, to reference entities from other domains, we use the `External Identities` pattern with denormalization of entity descriptions.
+## Business Rules
 
-Therefore, you will write an API (complete CRUD) that handles sales records. The API needs to be able to inform:
+### Entity fields
 
 * Sale number
 * Date when the sale was made
@@ -21,7 +22,7 @@ Therefore, you will write an API (complete CRUD) that handles sales records. The
 * Total amount for each item
 * Cancelled/Not Cancelled
 
-### Business Rules
+### Rules
 
 * Purchases above 4 identical items have a 10% discount
 * Purchases between 10 and 20 identical items have a 20% discount
@@ -67,7 +68,6 @@ See [Frameworks](/.doc/frameworks.md)
 This section describes the overall structure and organization of the project files and directories. 
 
 See [Project Structure](/.doc/project-structure.md)
-
 
 ## Backlog
 This future implementations for this API. 

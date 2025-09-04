@@ -1,6 +1,6 @@
 [Back to README](../README.md)
 
-Execute project with visual studio is optional if you want to debug the code.
+Execute project with visual studio is optional, just if you want to see and/or debug the code.
 
 ### 1: Run Docker Compose
 The dockerfile is configured to up project and its dependencies running the docker-compose.
