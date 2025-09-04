@@ -1,4 +1,8 @@
-﻿using Ambev.DeveloperEvaluation.Application.Sales.GetSaleById;
+﻿using Ambev.DeveloperEvaluation.Application.Sales.CancellSale;
+using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
+using Ambev.DeveloperEvaluation.Application.Sales.GetSaleById;
+using Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
+using Ambev.DeveloperEvaluation.Unit.Application.TestData.Sales;
 using Ambev.DeveloperEvaluation.Unit.WebApi.TestData.Sales;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales;
@@ -50,69 +54,68 @@ namespace Ambev.DeveloperEvaluation.Unit.WebApi
             response.Data.Id.Should().Be(id);
         }
 
-        //[Fact(DisplayName = "Given valid request When CreateSale called Then returns created response")]
-        //public async Task CreateSale_ValidRequest_ReturnsCreated()
-        //{
-        //    // Arrange
-        //    var request = SaleRequestTestData.GenerateValidCreateRequest();
-        //    var command = new CreateSaleCommand();
-        //    var result = new CreateSaleResult { Id = Guid.NewGuid() };
+        [Fact(DisplayName = "Given valid request When CreateSale called Then returns created response")]
+        public async Task CreateSale_ValidRequest_ReturnsCreated()
+        {
+            // Arrange
+            var request = SaleControllerTestData.GenerateValidCreateSaleRequest();
+            var command = SaleHandlerTestData.GenerateValidCreateCommand();
+            var result = new CreateSaleResult { Id = Guid.NewGuid() };
 
-        //    _mapper.Map<CreateSaleCommand>(request).Returns(command);
-        //    _mediator.Send(command, Arg.Any<CancellationToken>()).Returns(result);
+            _mapper.Map<CreateSaleCommand>(request).Returns(command);
+            _mediator.Send(command, Arg.Any<CancellationToken>()).Returns(result);
 
-        //    // Act
-        //    var response = await _controller.CreateSale(request, CancellationToken.None);
+            // Act
+            var response = await _controller.CreateSale(request, CancellationToken.None);
 
-        //    // Assert
-        //    var createdResult = response as CreatedResult;
-        //    createdResult.Should().NotBeNull();
-        //    var payload = createdResult!.Value as ApiResponseWithData<Guid>;
-        //    payload!.Success.Should().BeTrue();
-        //    payload.Data.Should().Be(result.Id);
-        //}
+            // Assert
+            var createdResult = response as CreatedResult;
+            createdResult.Should().NotBeNull();
+            var payload = createdResult!.Value as ApiResponseWithData<Guid>;
+            payload!.Success.Should().BeTrue();
+            payload.Data.Should().Be(result.Id);
+        }
 
-        //[Fact(DisplayName = "Given valid request When UpdateSale called Then returns updated response")]
-        //public async Task UpdateSale_ValidRequest_ReturnsUpdated()
-        //{
-        //    // Arrange
-        //    var request = SaleRequestTestData.GenerateValidUpdateRequest();
-        //    var command = new UpdateSaleCommand();
-        //    var result = new UpdateSaleResult { Id = Guid.NewGuid() };
+        [Fact(DisplayName = "Given valid request When UpdateSale called Then returns updated response")]
+        public async Task UpdateSale_ValidRequest_ReturnsUpdated()
+        {
+            // Arrange
+            var request = SaleControllerTestData.GenerateValidUpdateSaleRequest();
+            var command = SaleHandlerTestData.GenerateValidUpdateCommand();
+            var result = new UpdateSaleResult { Id = Guid.NewGuid() };
 
-        //    _mapper.Map<UpdateSaleCommand>(request).Returns(command);
-        //    _mediator.Send(command, Arg.Any<CancellationToken>()).Returns(result);
+            _mapper.Map<UpdateSaleCommand>(request).Returns(command);
+            _mediator.Send(command, Arg.Any<CancellationToken>()).Returns(result);
 
-        //    // Act
-        //    var response = await _controller.UpdateSale(request, CancellationToken.None);
+            // Act
+            var response = await _controller.UpdateSale(request, CancellationToken.None);
 
-        //    // Assert
-        //    var okResult = response as OkObjectResult;
-        //    okResult.Should().NotBeNull();
-        //    var payload = okResult!.Value as ApiResponseWithData<Guid>;
-        //    payload!.Success.Should().BeTrue();
-        //    payload.Data.Should().Be(result.Id);
-        //}
+            // Assert
+            var okResult = response as OkObjectResult;
+            okResult.Should().NotBeNull();
+            var payload = okResult!.Value as ApiResponseWithData<Guid>;
+            payload!.Success.Should().BeTrue();
+            payload.Data.Should().Be(result.Id);
+        }
 
-        //[Fact(DisplayName = "Given valid ID When CancellSale called Then returns success response")]
-        //public async Task CancellSale_ValidId_ReturnsSuccess()
-        //{
-        //    // Arrange
-        //    var id = Guid.NewGuid();
-        //    var command = new CancellSaleCommand(id);
+        [Fact(DisplayName = "Given valid ID When CancellSale called Then returns success response")]
+        public async Task CancellSale_ValidId_ReturnsSuccess()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var command = new CancellSaleCommand { Id = Guid.NewGuid() };
 
-        //    _mapper.Map<CancellSaleCommand>(id).Returns(command);
-        //    _mediator.Send(command, Arg.Any<CancellationToken>()).Returns(true);
+            _mapper.Map<CancellSaleCommand>(id).Returns(command);
+            _mediator.Send(command, Arg.Any<CancellationToken>()).Returns(true);
 
-        //    // Act
-        //    var response = await _controller.CancellSale(id, CancellationToken.None);
+            // Act
+            var response = await _controller.CancellSale(id, CancellationToken.None);
 
-        //    // Assert
-        //    var okResult = response as OkObjectResult;
-        //    okResult.Should().NotBeNull();
-        //    var payload = okResult!.Value as ApiResponse;
-        //    payload!.Success.Should().BeTrue();
-        //    payload.Message.Should().Be("Sale cancelled successfully");
-        //}
+            // Assert
+            var okResult = response as OkObjectResult;
+            okResult.Should().NotBeNull();
+            var payload = okResult!.Value as ApiResponse;
+            payload!.Success.Should().BeTrue();
+        }
     }
 }

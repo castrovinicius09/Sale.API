@@ -1,5 +1,7 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Sales.GetSaleById;
 using Ambev.DeveloperEvaluation.Support.Application;
+using Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale;
+using Ambev.DeveloperEvaluation.WebApi.Features.Sales.UpdateSale;
 using Bogus;
 
 namespace Ambev.DeveloperEvaluation.Unit.WebApi.TestData.Sales
@@ -41,12 +43,57 @@ namespace Ambev.DeveloperEvaluation.Unit.WebApi.TestData.Sales
             .RuleFor(s => s.SaleItems, f => SaleItemApplicationTestData.GenerateValidItems(f.Random.Int(1, 5)));
 
         /// <summary>
+        /// Configures the Faker to generate valid sale input objects with:
+        /// - UserId: Random GUID
+        /// - UserName: Internet-style username
+        /// - BranchId: Random GUID
+        /// - BranchName: Company name
+        /// - BranchFullAddress: Full street address
+        /// - Items: List of valid sale items via <see cref="SaleItemTestData"/>
+        /// </summary>
+        private static readonly Faker<CreateSaleRequest> CreateSaleRequestFaker = new Faker<CreateSaleRequest>()
+            .RuleFor(s => s.UserId, f => f.Random.Guid())
+            .RuleFor(s => s.UserName, f => f.Internet.UserName())
+            .RuleFor(s => s.BranchId, f => f.Random.Guid())
+            .RuleFor(s => s.BranchName, f => f.Company.CompanyName())
+            .RuleFor(s => s.BranchFullAddress, f => f.Address.FullAddress())
+            .RuleFor(s => s.Items, f => SaleItemApplicationTestData.GenerateValidItems(f.Random.Int(1, 5)));
+
+        /// <summary>
+        /// Configures the Faker to generate valid sale input objects with:
+        /// - UserId: Random GUID
+        /// - UserName: Internet-style username
+        /// - BranchId: Random GUID
+        /// - BranchName: Company name
+        /// - BranchFullAddress: Full street address
+        /// - Items: List of valid sale items via <see cref="SaleItemTestData"/>
+        /// </summary>
+        private static readonly Faker<UpdateSaleRequest> UpdateSaleRequestFaker = new Faker<UpdateSaleRequest>()
+            .RuleFor(s => s.Id, f => f.Random.Guid())
+            .RuleFor(s => s.UserId, f => f.Random.Guid())
+            .RuleFor(s => s.UserName, f => f.Internet.UserName())
+            .RuleFor(s => s.BranchId, f => f.Random.Guid())
+            .RuleFor(s => s.BranchName, f => f.Company.CompanyName())
+            .RuleFor(s => s.BranchFullAddress, f => f.Address.FullAddress())
+            .RuleFor(s => s.Items, f => SaleItemApplicationTestData.GenerateValidItems(f.Random.Int(1, 5)));
+
+        /// <summary>
         /// Generates a valid <see cref="GetSaleByIdResult"/> with randomized data.
         /// </summary>
         /// <returns>A valid sale result that meets all validation requirements.</returns>
         public static GetSaleByIdResult GenerateValidGetSaleByIdResult()
         {
             return GetByIdResultFaker.Generate();
+        }
+
+        public static CreateSaleRequest GenerateValidCreateSaleRequest()
+        {
+            return CreateSaleRequestFaker.Generate();
+        }
+
+        public static UpdateSaleRequest GenerateValidUpdateSaleRequest()
+        {
+            return UpdateSaleRequestFaker.Generate();
         }
     }
 }

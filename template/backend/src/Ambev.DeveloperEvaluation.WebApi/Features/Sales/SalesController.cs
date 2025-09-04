@@ -51,12 +51,6 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
             var query = _mapper.Map<GetSaleByIdQuery>(request.Id);
             var response = await _mediator.Send(query, cancellationToken);
 
-            //return Ok(new ApiResponseWithData<GetSaleByIdResponse>
-            //{
-            //    Success = true,
-            //    Message = "Sale retrieved successfully",
-            //    Data = _mapper.Map<GetSaleByIdResponse>(response)
-            //});
             return Ok(_mapper.Map<GetSaleByIdResponse>(response));
         }
 
@@ -70,7 +64,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
         [ProducesResponseType(typeof(PaginatedResponse<GetPaginatedSaleResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetSaleById([FromBody] int pageNumber, int pageSize, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetPaginatedSales([FromBody] int pageNumber, int pageSize, CancellationToken cancellationToken)
         {
             var request = new GetPaginatedSalesRequest { PageNumber = pageNumber, PageSize = pageSize };
             var validator = new GetPaginatedSalesRequestValidator();
@@ -139,12 +133,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
             var command = _mapper.Map<UpdateSaleCommand>(request);
             var response = await _mediator.Send(command, cancellationToken);
 
-            return Ok(new ApiResponseWithData<Guid>
-            {
-                Success = true,
-                Message = "Sale update successfully",
-                Data = response.Id
-            });
+            return Ok(response.Id);
         }
 
         /// <summary>
@@ -169,11 +158,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
             var command = _mapper.Map<CancellSaleCommand>(request.Id);
             await _mediator.Send(command, cancellationToken);
 
-            return Ok(new ApiResponse
-            {
-                Success = true,
-                Message = "Sale cancelled successfully"
-            });
+            return Ok(true);
         }
     }
 }
