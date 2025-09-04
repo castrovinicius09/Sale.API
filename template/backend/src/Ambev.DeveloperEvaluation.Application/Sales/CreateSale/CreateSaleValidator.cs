@@ -24,6 +24,9 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
         /// </remarks>
         public CreateSaleValidator()
         {
+            RuleFor(x => x.SaleNumber)
+                .GreaterThan(0).WithMessage("SaleNumber cannot be negative");
+
             RuleFor(x => x.UserId)
                 .NotEmpty().WithMessage("UserId must be provided.");
 

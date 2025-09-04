@@ -1,8 +1,33 @@
 [Back to README](../README.md)
 
-### Products
+### Sales
 
-#### GET /products
+#### GET{id} /product
+- Description: Retrieve a sale by id
+- Response: 
+  ```json
+  {
+    "data": [
+      {
+        "id": "integer",
+        "title": "string",
+        "price": "number",
+        "description": "string",
+        "category": "string",
+        "image": "string",
+        "rating": {
+          "rate": "number",
+          "count": "integer"
+        }
+      }
+    ],
+    "totalItems": "integer",
+    "currentPage": "integer",
+    "totalPages": "integer"
+  }
+  ```
+
+  #### GET /PaginatedSale
 - Description: Retrieve a list of all products
 - Query Parameters:
   - `_page` (optional): Page number for pagination (default: 1)

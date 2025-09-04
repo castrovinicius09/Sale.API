@@ -48,5 +48,13 @@ namespace Ambev.DeveloperEvaluation.Domain.Repositories
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>True if the sale was cancelled, false if not found</returns>
         Task<bool> CancellAsync(Guid id, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Check if a sale with the given sale number exists
+        /// </summary>
+        /// <param name="saleNumber">The sale number to check</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Return a sale object if exist</returns>
+        Task<Sale?> GetBySaleNumber(long saleNumber, CancellationToken cancellationToken = default);
     }
 }

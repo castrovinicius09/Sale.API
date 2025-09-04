@@ -20,6 +20,11 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
     public class CreateSaleCommand : IRequest<CreateSaleResult>
     {
         /// <summary>
+        /// the sale number previously created
+        /// </summary>
+        public long SaleNumber { get; set; }
+
+        /// <summary>
         /// Gets the unique identifier of the user making the sale.
         /// </summary>
         public Guid UserId { get; set; }

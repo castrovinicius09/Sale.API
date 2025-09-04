@@ -18,11 +18,11 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
             string userName,
             Guid branchId,
             string branchName,
-            string branchAddress,
-            int quantity,
-            decimal unitPrice,
-            Guid productId,
-            string productName)
+            string branchAddress)
+        //int quantity,
+        //decimal unitPrice,
+        //Guid productId,
+        //string productName)
         {
             SaleNumber = saleNumber;
             UserId = userId;
@@ -33,7 +33,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
             Cancelled = false;
             CreatedAt = DateTime.UtcNow;
 
-            AddItem(quantity, unitPrice, productId, productName);
+            //AddItem(quantity, unitPrice, productId, productName);
         }
 
         public long SaleNumber { get; private set; } //cannot be updated
@@ -70,12 +70,12 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
             string userName,
             Guid branchId,
             string branchName,
-            string branchAddress,
-            /*saleitem properties*/
-            int quantity,
-            decimal unitPrice,
-            Guid productId,
-            string productName)
+            string branchAddress)
+        /*saleitem properties*/
+        //int quantity,
+        //decimal unitPrice,
+        //Guid productId,
+        //string productName)
         {
             //TODO: Create SaleCreatedEvent
             return new Sale(
@@ -84,11 +84,11 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
                 userName,
                 branchId,
                 branchName,
-                branchAddress,
-                quantity,
-                unitPrice,
-                productId,
-                productName);
+                branchAddress);
+            //quantity,
+            //unitPrice,
+            //productId,
+            //productName);
         }
 
         public void Update(
@@ -127,7 +127,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
             //fire event SaleItemDeletedEvent
         }
 
-        private void AddItem(
+        public void AddItem(
             int quantity,
             decimal unitPrice,
             Guid productId,
@@ -144,7 +144,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
             }
 
             _saleItems.Add(item);
-            _totalItems = _saleItems.Count;
+            _totalItems = _saleItems.Sum(s => s.Quantity);
             _totalSaleAmount = _saleItems.Sum(i => i.TotalAmount);
         }
     }

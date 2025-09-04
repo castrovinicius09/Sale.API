@@ -45,6 +45,10 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
             if (!validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
 
+            var saleNumber = await _saleRepository.GetBySaleNumber(command.SaleNumber);
+            if (saleNumber is not null)
+                throw new ValidationException($"Sale with number {command.SaleNumber} already exists.");
+
             _userService.ValidateUser(command.UserId);
             _branchService.ValidateBranch(command.BranchId);
             _productService.ValidateProduct(command.Items.Select(s => s.ProductId).ToList());

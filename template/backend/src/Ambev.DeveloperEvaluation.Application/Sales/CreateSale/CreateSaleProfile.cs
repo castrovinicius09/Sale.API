@@ -14,9 +14,28 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
         /// </summary>
         public CreateSaleProfile()
         {
-            CreateMap<CreateSaleCommand, Sale>();
-            CreateMap<Sale, CreateSaleResult>();
+            //CreateMap<CreateSaleCommand, Sale>();
+            CreateMap<CreateSaleCommand, Sale>().ConstructUsing(dto =>
+                Sale.Create(
+                    dto.SaleNumber,
+                    dto.UserId,
+                    dto.UserName,
+                    dto.BranchId,
+                    dto.BranchName,
+                    dto.BranchFullAddress))
+            .AfterMap((dto, sale, ctx) =>
+            {
+                foreach (var itemDto in dto.Items)
+                {
+                    sale.AddItem(
+                        itemDto.Quantity,
+                        itemDto.UnitPrice,
+                        itemDto.ProductId,
+                        itemDto.ProductName);
+                }
+            });
 
+            CreateMap<Sale, CreateSaleResult>();
             CreateMap<SaleItemDto, SaleItem>();
         }
     }

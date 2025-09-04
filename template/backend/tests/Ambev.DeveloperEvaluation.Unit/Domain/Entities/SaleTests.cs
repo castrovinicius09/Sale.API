@@ -61,11 +61,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
                 validSale.UserName,
                 validSale.BranchId,
                 validSale.BranchName,
-                validSale.BranchFullAddress,
-                item.Quantity,
-                item.UnitPrice,
-                item.ProductId,
-                item.ProductName);
+                validSale.BranchFullAddress);
 
             // Assert
             Assert.Equal(validSale.SaleNumber, sale.SaleNumber);

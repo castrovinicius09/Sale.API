@@ -82,5 +82,16 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
             await _context.SaveChangesAsync(cancellationToken);
             return true;
         }
+
+        /// <summary>
+        /// Check if a sale with the given sale number exists
+        /// </summary>
+        /// <param name="saleNumber">The sale number to check</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Return a sale object if exist</returns>
+        public async Task<Sale?> GetBySaleNumber(long saleNumber, CancellationToken cancellationToken = default)
+        {
+            return await _context.Sales.FirstOrDefaultAsync(o => o.SaleNumber == saleNumber, cancellationToken);
+        }
     }
 }

@@ -13,6 +13,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale
         /// </summary>
         /// <remarks>
         /// Validation rules include:
+        /// - SaleNumber: Must be provided and not empty
         /// - UserId: Must be provided and not empty
         /// - UserName: Required, must not exceed 100 characters
         /// - BranchId: Must be provided and not empty
@@ -23,6 +24,8 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale
         /// </remarks>
         public CreateSaleRequestValidator()
         {
+            RuleFor(x => x.SaleNumber).GreaterThan(0).WithMessage("SaleNumber cannot be negative");
+
             RuleFor(x => x.UserId).NotEmpty().WithMessage("UserId must be provided.");
 
             RuleFor(x => x.UserName)

@@ -2,15 +2,6 @@
 
 `READ CAREFULLY`
 
-## Instructions
-**The test below will have up to 7 calendar days to be delivered from the date of receipt of this manual.**
-
-- The code must be versioned in a public Github repository and a link must be sent for evaluation once completed
-- Upload this template to your repository and start working from it
-- Read the instructions carefully and make sure all requirements are being addressed
-- The repository must provide instructions on how to configure, execute and test the project
-- Documentation and overall organization will also be taken into consideration
-
 ## Use Case
 **You are a developer on the DeveloperStore team. Now we need to implement the API prototypes.**
 
@@ -30,14 +21,6 @@ Therefore, you will write an API (complete CRUD) that handles sales records. The
 * Total amount for each item
 * Cancelled/Not Cancelled
 
-It's not mandatory, but it would be a differential to build code for publishing events of:
-* SaleCreated
-* SaleModified
-* SaleCancelled
-* ItemCancelled
-
-If you write the code, **it's not required** to actually publish to any Message Broker. You can log a message in the application log or however you find most convenient.
-
 ### Business Rules
 
 * Purchases above 4 identical items have a 10% discount
@@ -54,6 +37,16 @@ These business rules define quantity-based discounting tiers and limitations:
 2. Restrictions:
    - Maximum limit: 20 items per product
    - No discounts allowed for quantities below 4 items
+
+## Requirements
+Make sure you have the following installed before running the project:
+- [Docker Desktop](https://www.docker.com/products/docker-desktop) (with Docker Compose enabled)
+- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) (or higher)
+
+## Running the Project
+This section provides instruction to run the project and see the new api sale endpoints.
+
+See [Running the Project](/.doc/running_project.md)
 
 ## Overview
 This section provides a high-level overview of the project and the various skills and competencies it aims to assess for developer candidates. 

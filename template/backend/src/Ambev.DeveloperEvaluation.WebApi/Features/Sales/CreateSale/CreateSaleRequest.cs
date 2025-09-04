@@ -8,6 +8,11 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale
     public class CreateSaleRequest
     {
         /// <summary>
+        /// the sale number previously created
+        /// </summary>
+        public long SaleNumber { get; set; }
+
+        /// <summary>
         /// Gets the unique identifier of the user making the sale.
         /// </summary>
         public Guid UserId { get; set; }
