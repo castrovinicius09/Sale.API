@@ -9,8 +9,8 @@ docker-compose up --build
 ```
 The API will be available at:
 ```bash
-http://localhost:5000
-http://localhost:5000/swagger
+http://localhost:8080
+http://localhost:8080/swagger
 ```
 
 ### 2: Run with Visual Studio
