@@ -1,12 +1,12 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Dtos.Sales;
 using Bogus;
 
-namespace Ambev.DeveloperEvaluation.Unit.Application.TestData.Sales
+namespace Ambev.DeveloperEvaluation.Support.Application
 {
     /// <summary>
     /// Provides test data for <see cref="SaleItemDto"/> used in sale item creation.
     /// </summary>
-    public static class SaleItemTestData
+    public static class SaleItemApplicationTestData
     {
         /// <summary>
         /// Configures the Faker to generate valid sale items with:

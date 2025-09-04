@@ -8,7 +8,7 @@ namespace Ambev.DeveloperEvaluation.Support.Domain.TestData
     /// This class centralizes all test data generation to ensure consistency
     /// across test cases and provide both valid and invalid data scenarios.
     /// </summary>
-    public static class SaleItemTestData
+    public static class SaleItemDomainTestData
     {
         private static readonly Faker _faker = new Faker();
 

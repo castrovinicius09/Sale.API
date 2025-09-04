@@ -1,4 +1,5 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Entities.Sales;
+﻿using Ambev.DeveloperEvaluation.Application.Dtos.Sales;
+using Ambev.DeveloperEvaluation.Domain.Entities.Sales;
 using AutoMapper;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
@@ -15,6 +16,8 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
         {
             CreateMap<CreateSaleCommand, Sale>();
             CreateMap<Sale, CreateSaleResult>();
+
+            CreateMap<SaleItemDto, SaleItem>();
         }
     }
 }

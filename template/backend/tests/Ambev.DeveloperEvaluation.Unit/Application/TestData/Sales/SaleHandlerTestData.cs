@@ -1,6 +1,8 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Sales.CancellSale;
 using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
+using Ambev.DeveloperEvaluation.Application.Sales.GetPaginatedSales;
 using Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
+using Ambev.DeveloperEvaluation.Support.Application;
 using Bogus;
 
 namespace Ambev.DeveloperEvaluation.Unit.Application.TestData.Sales
@@ -27,7 +29,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.TestData.Sales
             .RuleFor(c => c.BranchId, f => f.Random.Guid())
             .RuleFor(c => c.BranchName, f => f.Company.CompanyName())
             .RuleFor(c => c.BranchFullAddress, f => f.Address.FullAddress())
-            .RuleFor(c => c.Items, f => SaleItemTestData.GenerateValidItems(f.Random.Int(1, 5)));
+            .RuleFor(c => c.Items, f => SaleItemApplicationTestData.GenerateValidItems(f.Random.Int(1, 5)));
 
         /// <summary>
         /// Configures the Faker to generate valid update sale commands with:
@@ -48,7 +50,20 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.TestData.Sales
             .RuleFor(c => c.BranchId, f => f.Random.Guid())
             .RuleFor(c => c.BranchName, f => f.Company.CompanyName())
             .RuleFor(c => c.BranchFullAddress, f => f.Address.FullAddress())
-            .RuleFor(c => c.Items, f => SaleItemTestData.GenerateValidItems(f.Random.Int(1, 5)));
+            .RuleFor(c => c.Items, f => SaleItemApplicationTestData.GenerateValidItems(f.Random.Int(1, 5)));
+
+        private static readonly Faker<GetPaginatedSalesResult> paginatedSalesFaker = new Faker<GetPaginatedSalesResult>()
+            .RuleFor(s => s.Id, f => f.Random.Guid())
+            .RuleFor(s => s.SaleNumber, f => f.Random.Long(1000, 999999))
+            .RuleFor(s => s.UserName, f => f.Internet.UserName())
+            .RuleFor(s => s.BranchName, f => f.Company.CompanyName())
+            .RuleFor(s => s.BranchFullAddress, f => f.Address.FullAddress())
+            .RuleFor(s => s.TotalItems, f => f.Random.Int(1, 10))
+            .RuleFor(s => s.TotalSaleAmount, f => f.Finance.Amount(100, 5000))
+            .RuleFor(s => s.Cancelled, f => f.Random.Bool())
+            .RuleFor(s => s.CreatedAt, f => f.Date.Past(1))
+            .RuleFor(s => s.UpdatedAt, f => f.Random.Bool() ? f.Date.Recent(5) : null)
+            .RuleFor(s => s.CancelledAt, (f, s) => s.Cancelled ? f.Date.Recent(10) : null);
 
         /// <summary>
         /// Generates a valid <see cref="CreateSaleCommand"/> with randomized data.
@@ -70,7 +85,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.TestData.Sales
             sale.UserId = Guid.Empty; // Invalid: UserId is required
             sale.BranchId = Guid.Empty; // Invalid: BranchId is required
             sale.BranchName = string.Empty; // Invalid: BranchName is required
-            sale.Items = SaleItemTestData.GenerateInvalidItems();
+            sale.Items = SaleItemApplicationTestData.GenerateInvalidItems();
 
             return sale;
         }
@@ -91,6 +106,11 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.TestData.Sales
         public static CancellSaleCommand GenerateValidCancellCommand()
         {
             return new CancellSaleCommand { Id = Guid.NewGuid() };
+        }
+
+        public static List<GetPaginatedSalesResult> GenerateValidPaginatedSaleResult()
+        {
+            return paginatedSalesFaker.Generate(10);
         }
     }
 }
