@@ -88,8 +88,8 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
             BranchId = branchId;
             BranchName = branchName;
             BranchFullAddress = branchAddress;
-            Cancelled = false;
             UpdatedAt = DateTime.UtcNow;
+
             //TODO: Create SaleUpdatedEvent
         }
 
@@ -126,9 +126,9 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
             else
             {
                 item = SaleItem.Create(quantity, unitPrice, productId, productName);
+                _saleItems.Add(item);
             }
 
-            _saleItems.Add(item);
             _totalItems = _saleItems.Sum(s => s.Quantity);
             _totalSaleAmount = _saleItems.Sum(i => i.TotalAmount);
         }

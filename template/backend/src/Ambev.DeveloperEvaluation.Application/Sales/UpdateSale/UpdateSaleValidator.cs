@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Ambev.DeveloperEvaluation.Application.Dtos.Sales;
+using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale
 {
@@ -40,6 +41,13 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale
             RuleFor(x => x.BranchFullAddress)
                 .NotEmpty().WithMessage("BranchFullAddress is required.")
                 .MaximumLength(200).WithMessage("BranchFullAddress must not exceed 200 characters.");
+
+            RuleFor(x => x.Items)
+                .NotEmpty().WithMessage("A venda deve conter ao menos um item.")
+                .ForEach(item =>
+                {
+                    item.SetValidator(new SaleItemDtoValidator());
+                });
         }
     }
 }

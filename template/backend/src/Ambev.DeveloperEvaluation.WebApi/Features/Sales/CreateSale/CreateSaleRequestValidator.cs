@@ -1,4 +1,5 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Dtos.Sales;
+using Ambev.DeveloperEvaluation.WebApi.Features.Sales.Shared.SaleItem;
 using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale
@@ -46,7 +47,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale
                 .NotEmpty().WithMessage("At least one sale item must be provided.")
                 .Must(items => items.All(item => item != null)).WithMessage("Sale items cannot contain null entries.");
 
-            RuleForEach(x => x.Items).SetValidator(new SaleItemDtoValidator());
+            RuleForEach(x => x.Items).SetValidator(new SaleItemRequestValidator());
         }
     }
 }

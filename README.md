@@ -63,17 +63,13 @@ This section outlines the frameworks and libraries that are leveraged in the pro
 
 See [Frameworks](/.doc/frameworks.md)
 
-<!-- 
-## API Structure
-This section includes links to the detailed documentation for the different API resources:
-- [API General](./docs/general-api.md)
-- [Products API](/.doc/products-api.md)
-- [Carts API](/.doc/carts-api.md)
-- [Users API](/.doc/users-api.md)
-- [Auth API](/.doc/auth-api.md)
--->
-
 ## Project Structure
 This section describes the overall structure and organization of the project files and directories. 
 
 See [Project Structure](/.doc/project-structure.md)
+
+
+## Backlog
+This future implementations for this API. 
+
+See [Backlog](/.doc/backlog.md)
