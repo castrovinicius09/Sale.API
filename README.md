@@ -1,22 +1,14 @@
 # Developer Evaluation Project
 
-`READ CAREFULLY`
+This API was based on `DDD` principles do create a Sales CRUD.  
+When referencing entities from other domains, the `External Identities` pattern was applied together with denormalization of entity descriptions, ensuring consistency while simplifying queries and reporting.  
+This approach was adopted to implement a complete CRUD for managing sales records, providing clear and structured access to the required information.
 
-## Instructions
-**The test below will have up to 7 calendar days to be delivered from the date of receipt of this manual.**
+If you want to take a look in the future ideas for this project take a look [here](/.doc/backlog.md)
 
-- The code must be versioned in a public Github repository and a link must be sent for evaluation once completed
-- Upload this template to your repository and start working from it
-- Read the instructions carefully and make sure all requirements are being addressed
-- The repository must provide instructions on how to configure, execute and test the project
-- Documentation and overall organization will also be taken into consideration
+## Business Rules
 
-## Use Case
-**You are a developer on the DeveloperStore team. Now we need to implement the API prototypes.**
-
-As we work with `DDD`, to reference entities from other domains, we use the `External Identities` pattern with denormalization of entity descriptions.
-
-Therefore, you will write an API (complete CRUD) that handles sales records. The API needs to be able to inform:
+### Entity fields
 
 * Sale number
 * Date when the sale was made
@@ -30,15 +22,7 @@ Therefore, you will write an API (complete CRUD) that handles sales records. The
 * Total amount for each item
 * Cancelled/Not Cancelled
 
-It's not mandatory, but it would be a differential to build code for publishing events of:
-* SaleCreated
-* SaleModified
-* SaleCancelled
-* ItemCancelled
-
-If you write the code, **it's not required** to actually publish to any Message Broker. You can log a message in the application log or however you find most convenient.
-
-### Business Rules
+### Rules
 
 * Purchases above 4 identical items have a 10% discount
 * Purchases between 10 and 20 identical items have a 20% discount
@@ -55,6 +39,16 @@ These business rules define quantity-based discounting tiers and limitations:
    - Maximum limit: 20 items per product
    - No discounts allowed for quantities below 4 items
 
+## Requirements
+Make sure you have the following installed before running the project:
+- [Docker Desktop](https://www.docker.com/products/docker-desktop) (with Docker Compose enabled)
+- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) (or higher)
+
+## Running the Project
+This section provides instruction to run the project and see the new api sale endpoints.
+
+See [Running the Project](/.doc/running_project.md)
+
 ## Overview
 This section provides a high-level overview of the project and the various skills and competencies it aims to assess for developer candidates. 
 
@@ -70,17 +64,12 @@ This section outlines the frameworks and libraries that are leveraged in the pro
 
 See [Frameworks](/.doc/frameworks.md)
 
-<!-- 
-## API Structure
-This section includes links to the detailed documentation for the different API resources:
-- [API General](./docs/general-api.md)
-- [Products API](/.doc/products-api.md)
-- [Carts API](/.doc/carts-api.md)
-- [Users API](/.doc/users-api.md)
-- [Auth API](/.doc/auth-api.md)
--->
-
 ## Project Structure
 This section describes the overall structure and organization of the project files and directories. 
 
 See [Project Structure](/.doc/project-structure.md)
+
+## Backlog
+This future implementations for this API. 
+
+See [Backlog](/.doc/backlog.md)

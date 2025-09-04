@@ -48,7 +48,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
             if (!validationResult.IsValid)
                 return BadRequest(validationResult.Errors);
 
-            var query = _mapper.Map<GetSaleByIdQuery>(request.Id);
+            var query = _mapper.Map<GetSaleByIdQuery>(request);
             var response = await _mediator.Send(query, cancellationToken);
 
             return Ok(_mapper.Map<GetSaleByIdResponse>(response));
@@ -61,10 +61,10 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>The user details if found</returns>
         [HttpGet]
-        [ProducesResponseType(typeof(PaginatedResponse<GetPaginatedSaleResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PaginatedResponse<GetPaginatedSalesResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetPaginatedSales([FromBody] int pageNumber, int pageSize, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetPaginatedSales(int pageNumber, int pageSize, CancellationToken cancellationToken)
         {
             var request = new GetPaginatedSalesRequest { PageNumber = pageNumber, PageSize = pageSize };
             var validator = new GetPaginatedSalesRequestValidator();
@@ -73,11 +73,13 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
             if (!validationResult.IsValid)
                 return BadRequest(validationResult.Errors);
 
-            var query = _mapper.Map<GetPaginatedSaleQuery>(request);
+            var query = _mapper.Map<GetPaginatedSalesQuery>(request);
             var result = await _mediator.Send(query, cancellationToken);
 
-            var paginatedList = await PaginatedList<GetPaginatedSaleResponse>.CreateAsync(
-                _mapper.Map<IQueryable<GetPaginatedSaleResponse>>(result),
+            var mappedList = _mapper.Map<List<GetPaginatedSalesResponse>>(result);
+
+            var paginatedList = await PaginatedList<GetPaginatedSalesResponse>.CreateAsync(
+                mappedList,
                 request.PageNumber,
                 request.PageSize);
 
@@ -155,7 +157,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
             if (!validationResult.IsValid)
                 return BadRequest(validationResult.Errors);
 
-            var command = _mapper.Map<CancellSaleCommand>(request.Id);
+            var command = _mapper.Map<CancellSaleCommand>(request);
             await _mediator.Send(command, cancellationToken);
 
             return Ok(true);

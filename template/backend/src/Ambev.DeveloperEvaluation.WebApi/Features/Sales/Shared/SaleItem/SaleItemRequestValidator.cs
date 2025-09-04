@@ -1,14 +1,14 @@
 ﻿using FluentValidation;
 
-namespace Ambev.DeveloperEvaluation.Application.Dtos.Sales
+namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.Shared.SaleItem
 {
     /// <summary>
-    /// Validator for SaleItemDto that defines validation rules for sale item creation.
+    /// Validator for SaleItemRequest that defines validation rules for sale item creation.
     /// </summary>
-    public sealed class SaleItemDtoValidator : AbstractValidator<SaleItemDto>
+    public sealed class SaleItemRequestValidator : AbstractValidator<SaleItemRequest>
     {
         /// <summary>
-        /// Initializes a new instance of the SaleItemDtoValidator with defined validation rules.
+        /// Initializes a new instance of the SaleItemRequestValidator with defined validation rules.
         /// </summary>
         /// <remarks>
         /// Validation rules include:
@@ -17,11 +17,11 @@ namespace Ambev.DeveloperEvaluation.Application.Dtos.Sales
         /// - ProductId: Must be provided
         /// - ProductName: Required, must not exceed 100 characters
         /// </remarks>
-        public SaleItemDtoValidator()
+        public SaleItemRequestValidator()
         {
             RuleFor(x => x.Quantity)
                 .GreaterThan(0).WithMessage("Quantity must be greater than zero.")
-                .LessThanOrEqualTo(20).WithMessage("Quantity must be less than or equal 20."); ;
+                .LessThanOrEqualTo(20).WithMessage("Quantity must be less than or equal 20.");
 
             RuleFor(x => x.UnitPrice)
                 .GreaterThan(0).WithMessage("UnitPrice must be greater than zero.");

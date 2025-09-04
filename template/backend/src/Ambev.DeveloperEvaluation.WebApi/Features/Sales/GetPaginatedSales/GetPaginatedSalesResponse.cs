@@ -1,6 +1,6 @@
 ﻿namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetPaginatedSales
 {
-    public class GetPaginatedSaleResponse
+    public class GetPaginatedSalesResponse
     {
         /// <summary>
         /// The unique identifier of the sale

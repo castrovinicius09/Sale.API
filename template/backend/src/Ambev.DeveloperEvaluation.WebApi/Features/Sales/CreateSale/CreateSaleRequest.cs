@@ -1,4 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Application.Dtos.Sales;
+﻿using Ambev.DeveloperEvaluation.WebApi.Features.Sales.Shared.SaleItem;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale
 {
@@ -7,6 +7,11 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale
     /// </summary>
     public class CreateSaleRequest
     {
+        /// <summary>
+        /// the sale number previously created
+        /// </summary>
+        public long SaleNumber { get; set; }
+
         /// <summary>
         /// Gets the unique identifier of the user making the sale.
         /// </summary>
@@ -35,6 +40,6 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale
         /// <summary>
         /// Gets the list of items included in the sale.
         /// </summary>
-        public List<SaleItemDto> Items { get; set; } = new();
+        public List<SaleItemRequest> Items { get; set; } = new();
     }
 }

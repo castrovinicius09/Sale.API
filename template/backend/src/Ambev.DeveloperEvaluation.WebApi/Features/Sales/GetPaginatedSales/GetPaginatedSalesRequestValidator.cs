@@ -9,8 +9,8 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetPaginatedSales
     {
         public GetPaginatedSalesRequestValidator()
         {
-            RuleFor(x => x.PageNumber).GreaterThanOrEqualTo(0).WithMessage("Page number can´t be negative");
-            RuleFor(x => x.PageNumber).GreaterThanOrEqualTo(1).WithMessage("Page size can´t be negative or zero");
+            RuleFor(x => x.PageNumber).GreaterThanOrEqualTo(1).WithMessage("Page number can´t be negative");
+            RuleFor(x => x.PageSize).GreaterThanOrEqualTo(1).WithMessage("Page size can´t be negative or zero");
         }
     }
 }

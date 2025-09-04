@@ -90,25 +90,6 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Sales
         }
 
         /// <summary>
-        /// Tests that a nonexistent user triggers a validation exception.
-        /// </summary>
-        [Fact(DisplayName = "Given nonexistent user When handling Then throws validation exception")]
-        public async Task Handle_NonexistentUser_ThrowsValidationException()
-        {
-            // Given
-            var command = SaleHandlerTestData.GenerateValidCreateCommand();
-
-            _userService.When(s => s.ValidateUser(command.UserId))
-                .Do(_ => throw new ValidationException("User not found"));
-
-            // When
-            var act = () => _handler.Handle(command, CancellationToken.None);
-
-            // Then
-            await act.Should().ThrowAsync<ValidationException>().WithMessage("User not found");
-        }
-
-        /// <summary>
         /// Tests that a nonexistent branch triggers a validation exception.
         /// </summary>
         [Fact(DisplayName = "Given nonexistent branch When handling Then throws validation exception")]

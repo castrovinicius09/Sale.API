@@ -19,7 +19,9 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// <returns>The sale if found, null otherwise</returns>
         public async Task<Sale?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            return await _context.Sales.FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
+            return await _context.Sales
+                .Include(i => i.SaleItems)
+                .FirstOrDefaultAsync(o => o.Id == id && !o.Cancelled, cancellationToken);
         }
 
         /// <summary>
@@ -33,6 +35,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
             CancellationToken cancellationToken = default)
         {
             return await _context.Sales
+                .Where(s => !s.Cancelled)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync(cancellationToken);
@@ -81,6 +84,17 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
             _context.Update(sale);
             await _context.SaveChangesAsync(cancellationToken);
             return true;
+        }
+
+        /// <summary>
+        /// Check if a sale with the given sale number exists
+        /// </summary>
+        /// <param name="saleNumber">The sale number to check</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Return a sale object if exist</returns>
+        public async Task<Sale?> GetBySaleNumber(long saleNumber, CancellationToken cancellationToken = default)
+        {
+            return await _context.Sales.FirstOrDefaultAsync(o => o.SaleNumber == saleNumber, cancellationToken);
         }
     }
 }

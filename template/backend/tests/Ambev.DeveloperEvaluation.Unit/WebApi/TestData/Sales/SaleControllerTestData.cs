@@ -49,15 +49,16 @@ namespace Ambev.DeveloperEvaluation.Unit.WebApi.TestData.Sales
         /// - BranchId: Random GUID
         /// - BranchName: Company name
         /// - BranchFullAddress: Full street address
-        /// - Items: List of valid sale items via <see cref="SaleItemTestData"/>
+        /// - Items: List of valid sale items via <see cref="SaleItemRequestTestData"/>
         /// </summary>
         private static readonly Faker<CreateSaleRequest> CreateSaleRequestFaker = new Faker<CreateSaleRequest>()
+            .RuleFor(s => s.SaleNumber, f => f.Random.Long())
             .RuleFor(s => s.UserId, f => f.Random.Guid())
             .RuleFor(s => s.UserName, f => f.Internet.UserName())
             .RuleFor(s => s.BranchId, f => f.Random.Guid())
             .RuleFor(s => s.BranchName, f => f.Company.CompanyName())
             .RuleFor(s => s.BranchFullAddress, f => f.Address.FullAddress())
-            .RuleFor(s => s.Items, f => SaleItemApplicationTestData.GenerateValidItems(f.Random.Int(1, 5)));
+            .RuleFor(s => s.Items, f => SaleItemRequestTestData.GenerateValidItems(f.Random.Int(1, 5)));
 
         /// <summary>
         /// Configures the Faker to generate valid sale input objects with:
@@ -66,7 +67,7 @@ namespace Ambev.DeveloperEvaluation.Unit.WebApi.TestData.Sales
         /// - BranchId: Random GUID
         /// - BranchName: Company name
         /// - BranchFullAddress: Full street address
-        /// - Items: List of valid sale items via <see cref="SaleItemTestData"/>
+        /// - Items: List of valid sale items via <see cref="SaleItemRequestTestData"/>
         /// </summary>
         private static readonly Faker<UpdateSaleRequest> UpdateSaleRequestFaker = new Faker<UpdateSaleRequest>()
             .RuleFor(s => s.Id, f => f.Random.Guid())
@@ -75,7 +76,7 @@ namespace Ambev.DeveloperEvaluation.Unit.WebApi.TestData.Sales
             .RuleFor(s => s.BranchId, f => f.Random.Guid())
             .RuleFor(s => s.BranchName, f => f.Company.CompanyName())
             .RuleFor(s => s.BranchFullAddress, f => f.Address.FullAddress())
-            .RuleFor(s => s.Items, f => SaleItemApplicationTestData.GenerateValidItems(f.Random.Int(1, 5)));
+            .RuleFor(s => s.Items, f => SaleItemRequestTestData.GenerateValidItems(f.Random.Int(1, 5)));
 
         /// <summary>
         /// Generates a valid <see cref="GetSaleByIdResult"/> with randomized data.

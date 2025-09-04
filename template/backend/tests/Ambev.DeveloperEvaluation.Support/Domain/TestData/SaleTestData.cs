@@ -21,10 +21,6 @@ namespace Ambev.DeveloperEvaluation.Support.Domain.TestData
         /// - branchId (using random Guid)
         /// - branchName (using company names)
         /// - branchAddress (using address)
-        /// - quantity (using fixed value to 10% discount)
-        /// - unitPrice (using fixed value to 10% discount)
-        /// - productId (using address)
-        /// - productName (using commerce product name)
         /// </summary>
         public static Sale GenerateValidSale()
         {
@@ -34,10 +30,6 @@ namespace Ambev.DeveloperEvaluation.Support.Domain.TestData
             var branchId = _faker.Random.Guid();
             var branchName = _faker.Company.CompanyName();
             var branchAddress = _faker.Address.FullAddress();
-            var quantity = 5;
-            var unitPrice = 10;
-            var productId = _faker.Random.Guid();
-            var productName = _faker.Commerce.ProductName();
 
             // Chama o método estático de fábrica
             return Sale.Create(
@@ -46,11 +38,7 @@ namespace Ambev.DeveloperEvaluation.Support.Domain.TestData
                 userName,
                 branchId,
                 branchName,
-                branchAddress,
-                quantity,
-                unitPrice,
-                productId,
-                productName);
+                branchAddress);
         }
 
         /// <summary>
@@ -62,10 +50,6 @@ namespace Ambev.DeveloperEvaluation.Support.Domain.TestData
         /// - branchId (empty Guid)
         /// - branchName (invalid name length)
         /// - branchAddress (invalid address name)
-        /// - quantity (invalid number)
-        /// - unitPrice (invalid number)
-        /// - productId (empty Guid)
-        /// - productName (invlaid string length)
         /// </summary>
         public static Sale GenerateInvalidSale()
         {
@@ -75,10 +59,6 @@ namespace Ambev.DeveloperEvaluation.Support.Domain.TestData
             var branchId = Guid.Empty;
             var branchName = _faker.Random.String2(101);
             var branchAddress = _faker.Random.String2(151);
-            var quantity = 0;
-            var unitPrice = 0;
-            var productId = Guid.Empty;
-            var productName = _faker.Random.String2(101);
 
             // Chama o método estático de fábrica
             return Sale.Create(
@@ -87,11 +67,7 @@ namespace Ambev.DeveloperEvaluation.Support.Domain.TestData
                 userName,
                 branchId,
                 branchName,
-                branchAddress,
-                quantity,
-                unitPrice,
-                productId,
-                productName);
+                branchAddress);
         }
     }
 }

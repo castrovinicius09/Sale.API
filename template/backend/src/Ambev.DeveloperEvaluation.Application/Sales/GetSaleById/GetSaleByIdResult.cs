@@ -65,6 +65,6 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetSaleById
         /// <summary>
         /// Sale item list
         /// </summary>
-        public IReadOnlyList<SaleItemDto> SaleItems { get; }
+        public IReadOnlyList<SaleItemDto> SaleItems { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Application.Dtos.Sales;
+﻿using Ambev.DeveloperEvaluation.WebApi.Features.Sales.Shared.SaleItem;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.UpdateSale
 {
@@ -45,6 +45,6 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.UpdateSale
         /// <summary>
         /// Gets the list of items included in the sale.
         /// </summary>
-        public List<SaleItemDto> Items { get; set; } = new();
+        public List<SaleItemRequest> Items { get; set; } = new();
     }
 }
