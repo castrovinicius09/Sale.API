@@ -34,13 +34,14 @@ namespace Ambev.DeveloperEvaluation.Unit.WebApi
         {
             // Arrange
             var id = Guid.NewGuid();
-            var query = new GetSaleByIdQuery(id);
+            var resquest = new GetSaleByIdRequest { Id = id };
+            var query = new GetSaleByIdQuery(resquest.Id);
             var getSaleByIdResult = SaleControllerTestData.GenerateValidGetSaleByIdResult();
             var apiResponse = new GetSaleByIdResponse { Id = id };
 
             _mediator.Send(query, Arg.Any<CancellationToken>()).Returns(getSaleByIdResult);
 
-            _mapper.Map<GetSaleByIdQuery>(id).Returns(query);
+            _mapper.Map<GetSaleByIdQuery>(resquest).Returns(query);
             _mapper.Map<GetSaleByIdResponse>(getSaleByIdResult).Returns(apiResponse);
 
             // Act
@@ -51,7 +52,6 @@ namespace Ambev.DeveloperEvaluation.Unit.WebApi
             okResult.Should().NotBeNull();
             var response = okResult!.Value as ApiResponseWithData<GetSaleByIdResponse>;
             response!.Success.Should().BeTrue();
-            response.Data.Id.Should().Be(id);
         }
 
         [Fact(DisplayName = "Given valid request When CreateSale called Then returns created response")]

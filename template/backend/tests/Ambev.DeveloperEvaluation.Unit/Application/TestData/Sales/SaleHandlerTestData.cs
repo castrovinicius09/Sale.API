@@ -24,6 +24,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.TestData.Sales
         /// - Items: List of valid sale items generated via <see cref="SaleItemDtoFaker"/>
         /// </summary>
         private static readonly Faker<CreateSaleCommand> createSaleFaker = new Faker<CreateSaleCommand>()
+            .RuleFor(c => c.SaleNumber, f => f.Random.Long(1000, 999999))
             .RuleFor(c => c.UserId, f => f.Random.Guid())
             .RuleFor(c => c.UserName, f => f.Internet.UserName())
             .RuleFor(c => c.BranchId, f => f.Random.Guid())

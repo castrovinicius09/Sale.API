@@ -6,9 +6,10 @@
 ### Backlog
 
 1. Filtering and sorting sale list.
-2. Sale Events
-3. MongoDB to store Sale and items
-4. Value Objects for Quantity and Money
-5. User Authentication and Authorization
-6. Audit Sales (EF interceptors)
-7. Github actions
+2. Generate SaleNumber with DB validation in create sale process.
+3. Sale Events
+4. MongoDB to store Sale and items
+5. Value Objects for Quantity and Money
+6. User Authentication and Authorization
+7. Audit Sales (EF interceptors)
+8. Github actions

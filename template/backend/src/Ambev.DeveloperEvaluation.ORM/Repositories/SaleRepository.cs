@@ -21,7 +21,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         {
             return await _context.Sales
                 .Include(i => i.SaleItems)
-                .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
+                .FirstOrDefaultAsync(o => o.Id == id && !o.Cancelled, cancellationToken);
         }
 
         /// <summary>
@@ -35,6 +35,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
             CancellationToken cancellationToken = default)
         {
             return await _context.Sales
+                .Where(s => !s.Cancelled)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync(cancellationToken);

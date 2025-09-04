@@ -130,6 +130,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
         {
             // Arrange
             var sale = SaleTestData.GenerateValidSale();
+            sale.AddItem(1, 10, Guid.NewGuid(), "Product A");
             var item = sale.SaleItems.FirstOrDefault();
 
             // Act

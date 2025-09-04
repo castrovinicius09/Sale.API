@@ -52,6 +52,7 @@ namespace Ambev.DeveloperEvaluation.Unit.WebApi.TestData.Sales
         /// - Items: List of valid sale items via <see cref="SaleItemRequestTestData"/>
         /// </summary>
         private static readonly Faker<CreateSaleRequest> CreateSaleRequestFaker = new Faker<CreateSaleRequest>()
+            .RuleFor(s => s.SaleNumber, f => f.Random.Long())
             .RuleFor(s => s.UserId, f => f.Random.Guid())
             .RuleFor(s => s.UserName, f => f.Internet.UserName())
             .RuleFor(s => s.BranchId, f => f.Random.Guid())
