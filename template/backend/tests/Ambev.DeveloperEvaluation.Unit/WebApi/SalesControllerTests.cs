@@ -2,8 +2,8 @@
 using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.Application.Sales.GetSaleById;
 using Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
+using Ambev.DeveloperEvaluation.Support.WebApi.Sales;
 using Ambev.DeveloperEvaluation.Unit.Application.TestData.Sales;
-using Ambev.DeveloperEvaluation.Unit.WebApi.TestData.Sales;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSaleById;

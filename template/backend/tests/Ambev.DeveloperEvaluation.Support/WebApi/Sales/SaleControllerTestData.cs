@@ -4,7 +4,7 @@ using Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.UpdateSale;
 using Bogus;
 
-namespace Ambev.DeveloperEvaluation.Unit.WebApi.TestData.Sales
+namespace Ambev.DeveloperEvaluation.Support.WebApi.Sales
 {
     /// <summary>
     /// Provides methods for generating test data using the Bogus library.

@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Ambev.DeveloperEvaluation.Application\Ambev.DeveloperEvaluation.Application.csproj" />
     <ProjectReference Include="..\..\src\Ambev.DeveloperEvaluation.Domain\Ambev.DeveloperEvaluation.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Ambev.DeveloperEvaluation.WebApi\Ambev.DeveloperEvaluation.WebApi.csproj" />
   </ItemGroup>
 
 </Project>
